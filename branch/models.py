@@ -1,5 +1,5 @@
 from django.db import models
-from django.utils.translation import ugettext
+from django.utils.translation import ugettext_lazy as _
 
 
 class Branch(models.Model):
@@ -10,8 +10,8 @@ class Branch(models.Model):
 
     class Meta:
         db_table = 'branch'
-        verbose_name = ugettext('Branch')
-        verbose_name_plural = ugettext('Branches')
+        verbose_name = _('Branch')
+        verbose_name_plural = _('Branches')
 
     def __str__(self):
         return self.name

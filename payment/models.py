@@ -1,5 +1,5 @@
 from django.db import models
-from django.utils.translation import ugettext
+from django.utils.translation import ugettext_lazy as _
 
 
 class Payment(models.Model):
@@ -12,8 +12,9 @@ class Payment(models.Model):
 
     class Meta:
         db_table = 'payment'
-        verbose_name = ugettext('Payment')
-        verbose_name_plural = ugettext('Payments')
+        verbose_name = _('Payment')
+        verbose_name_plural = _('Payments')
 
     def __str__(self):
-        return f"Id: {self.id} {ugettext('value')}: {self.value}"
+        value_txt = _('value')
+        return f"Id: {self.id}, {value_txt}: {self.value}"
