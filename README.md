@@ -2,8 +2,6 @@
 
 New version developed with Django 2.1
 
-
-
 ## Requirements
 
 - Python 3.6
@@ -11,6 +9,14 @@ New version developed with Django 2.1
 
 For dependencies, see requirements.txt
 
+## API docs
+
+`/docs`
+
+## Running local
+
+`python manage.py runserver`
+
 ## Tests
 
-In construction
+`python manage.py test --settings=bakery_payments_v2.settings.testing`
