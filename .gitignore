@@ -6,4 +6,5 @@
 __pycache__
 __pycache__/
 /.idea/
+bakery_payments_v2/static/
 tests.sqlite3
