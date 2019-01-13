@@ -2,7 +2,7 @@ from django.utils.translation import ugettext as _
 from rest_framework.generics import GenericAPIView
 from rest_framework.response import Response
 
-from .serializers import BranchInputSerializer
+from .serializers import BranchInputSerializer, BranchResponseSerializer
 from .services import BranchService
 
 
@@ -20,6 +20,7 @@ class BranchView(GenericAPIView):
         """
         params = request.data.copy()
         data = self.service.insert(params)
+        serialized = BranchResponseSerializer(data)
 
-        result = {'message': _('Branch recorded successfully!'), 'data': data}
+        result = {'message': _('Branch recorded successfully!'), 'data': serialized.data}
         return Response(result)
