@@ -24,3 +24,29 @@ class BranchView(GenericAPIView):
 
         result = {'message': _('Branch recorded successfully!'), 'data': serialized.data}
         return Response(result)
+
+    def get(self, request):
+        """
+        Returns a list of branches
+        """
+        data = self.service.find()
+        serialized = BranchResponseSerializer(data, many=True)
+
+        return Response(serialized.data)
+
+class BranchViewId(GenericAPIView):
+
+    serializer_class = BranchInputSerializer
+
+    def __init__(self, **kwargs):
+        super().__init__(**kwargs)
+        self.service = BranchService()
+
+    def get(self, request, branch_id):
+        """
+        Returns a single branch
+        """
+        data = self.service.find_by_id(branch_id)
+        serialized = BranchResponseSerializer(data)
+
+        return Response(serialized.data)

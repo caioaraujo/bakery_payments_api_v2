@@ -25,3 +25,23 @@ class BranchService:
         branch.save()
 
         return branch
+
+    def find(self):
+        """
+        Return a list of branches
+
+        Returns: Branch QuerySet
+
+        """
+        return Branch.objects.all()
+
+    def find_by_id(self, branch_id):
+        """
+        Return a single Branch instance
+        Args:
+            branch_id: int
+
+        Returns: Branch instance
+
+        """
+        return Branch.objects.filter(id=branch_id).first()

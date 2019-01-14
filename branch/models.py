@@ -10,6 +10,7 @@ class Branch(models.Model):
 
     class Meta:
         db_table = 'branch'
+        ordering = ['-id']
         verbose_name = _('Branch')
         verbose_name_plural = _('Branches')
 
