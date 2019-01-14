@@ -1,4 +1,4 @@
-runserver:
+run-server:
 	python manage.py runserver
 
 test:
@@ -14,3 +14,12 @@ coverage-erase:
 code-convention:
 	flake8
 	pycodestyle
+
+collect-static:
+	python manage.py collectstatic
+
+make-messages:
+	python manage.py makemessages -l pt_BR
+
+compile-messages:
+	python manage.py compilemessages
