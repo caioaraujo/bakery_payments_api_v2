@@ -1,4 +1,5 @@
 from django.utils.translation import ugettext as _
+from rest_framework import status
 from rest_framework.generics import GenericAPIView
 from rest_framework.response import Response
 
@@ -47,6 +48,10 @@ class BranchViewId(GenericAPIView):
         Returns a single branch
         """
         data = self.service.find_by_id(branch_id)
+
+        if not data:
+            return Response(None, status=status.HTTP_204_NO_CONTENT)
+
         serialized = BranchResponseSerializer(data)
 
         return Response(serialized.data)

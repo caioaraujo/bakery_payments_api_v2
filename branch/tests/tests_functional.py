@@ -2,6 +2,8 @@ from model_mommy import mommy
 from rest_framework import status
 from rest_framework.test import APITestCase
 
+from ..models import Branch
+
 
 class TestBranchAPI(APITestCase):
 
@@ -50,12 +52,35 @@ class TestBranchAPI(APITestCase):
         self.assertTrue(len(obtained_data))
         self.assertEqual(10, len(obtained_data))
 
+    def test_get__no_data_found(self):
+        Branch.objects.all().delete()
+
+        response = self.client.get(self.path)
+
+        obtained_data = response.data
+        self.assertFalse(len(obtained_data))
+
     def test_get_by_id__success(self):
         branch_id = 1
 
         url = f'{self.path}{branch_id}/'
         response = self.client.get(url)
 
+        obtained_status = response.status_code
+        self.assertEqual(status.HTTP_200_OK, obtained_status)
+
         obtained = response.data
         self.assertTrue(obtained)
         self.assertEqual('Test123', obtained['name'])
+
+    def test_get_by_id__no_data_found(self):
+        branch_id = 99
+
+        url = f'{self.path}{branch_id}/'
+        response = self.client.get(url)
+
+        obtained_status = response.status_code
+        self.assertEqual(status.HTTP_204_NO_CONTENT, obtained_status)
+
+        obtained = response.data
+        self.assertIsNone(obtained)
