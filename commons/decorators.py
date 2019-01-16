@@ -1,5 +1,5 @@
 from django.utils.translation import ugettext
-from rest_framework.exceptions import NotAcceptable
+from rest_framework.exceptions import NotAcceptable, NotFound
 
 
 def validate_requirements(*required_fields):
@@ -19,6 +19,41 @@ def validate_requirements(*required_fields):
             for required_field in required_fields:
                 if required_field not in obtained_fields:
                     invalid_data[required_field] = message
+
+            if invalid_data:
+                raise NotAcceptable(detail=invalid_data)
+            return func(self, params)
+        return wrapper
+    return decorator
+
+
+def validate_existance(*model_key, is_critical=False):
+    """
+    Check if model exists according to its key
+
+    Args:
+        *model_key: A tuple of pairs Model instance - primary key name.
+            Ex: ((Branch, 'branch_id'), (Payment, 'payment_id'))
+        is_critical: When true, if object is not found raises a NotFound exception immediatly
+
+    """
+    def decorator(func):
+        def wrapper(self, params):
+            message = ugettext('Not found')
+            invalid_data = dict()
+
+            for Model, key_name in model_key:
+                key_value = params.get(key_name)
+
+                if not key_value:
+                    continue
+
+                exists = Model.objects.filter(id=key_value).exists()
+
+                if not exists:
+                    if is_critical:
+                        raise NotFound(ugettext('{model} not found').format(model=Model.__name__))
+                    invalid_data[key_name] = message
 
             if invalid_data:
                 raise NotAcceptable(detail=invalid_data)

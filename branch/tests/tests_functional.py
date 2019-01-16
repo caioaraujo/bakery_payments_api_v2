@@ -26,7 +26,7 @@ class TestBranchAPI(APITestCase):
         self.assertEqual(status.HTTP_200_OK, obtained_status)
 
         obtained_data = response.data
-        self.assertEqual('Branch recorded successfully!', obtained_data['message'])
+        self.assertEqual('Branch recorded successfully!', obtained_data['detail'])
 
         branch_obtained = obtained_data['data']
         self.assertTrue(branch_obtained['id'] > 0)
@@ -43,6 +43,40 @@ class TestBranchAPI(APITestCase):
         detail = response.data
         self.assertEqual(detail['name'], expected_message)
         self.assertEqual(detail['current_balance'], expected_message)
+
+    def test_put__does_not_exists(self):
+        branch_id = 99
+        data = dict(name='AAA', current_balance=888)
+
+        url = f'{self.path}{branch_id}/'
+        response = self.client.put(path=url, data=data, HTTP_ACCEPT_LANGUAGE='en')
+
+        obtained_status = response.status_code
+        self.assertEqual(status.HTTP_404_NOT_FOUND, obtained_status)
+
+        obtained_data = response.data
+        self.assertEqual('Branch not found', obtained_data['detail'])
+
+    def test_put__success(self):
+        branch_id = 1
+
+        expected_name = 'AAA'
+        expected_balance = 888
+        data = dict(name=expected_name, current_balance=expected_balance)
+
+        url = f'{self.path}{branch_id}/'
+        response = self.client.put(path=url, data=data, HTTP_ACCEPT_LANGUAGE='en')
+
+        obtained_status = response.status_code
+        self.assertEqual(status.HTTP_200_OK, obtained_status)
+
+        obtained_data = response.data
+        self.assertEqual('Branch updated successfully!', obtained_data['detail'])
+
+        branch_obtained = obtained_data['data']
+        self.assertEqual(branch_id, branch_obtained['id'])
+        self.assertEqual(expected_name, branch_obtained['name'])
+        self.assertEqual(expected_balance, branch_obtained['current_balance'])
 
     def test_get__success(self):
         response = self.client.get(self.path)
@@ -80,7 +114,36 @@ class TestBranchAPI(APITestCase):
         response = self.client.get(url)
 
         obtained_status = response.status_code
-        self.assertEqual(status.HTTP_204_NO_CONTENT, obtained_status)
+        self.assertEqual(status.HTTP_404_NOT_FOUND, obtained_status)
 
-        obtained = response.data
-        self.assertIsNone(obtained)
+        detail = response.data['detail']
+
+        self.assertEqual('Branch not found', detail)
+
+    def test_delete__not_found(self):
+        branch_id = 99
+
+        url = f'{self.path}{branch_id}/'
+        response = self.client.delete(url, HTTP_ACCEPT_LANGUAGE='en')
+
+        obtained_status = response.status_code
+        self.assertEqual(status.HTTP_404_NOT_FOUND, obtained_status)
+
+        detail = response.data['detail']
+
+        self.assertEqual('Branch not found', detail)
+
+    def test_delete__success(self):
+        branch_id = 1
+
+        url = f'{self.path}{branch_id}/'
+        response = self.client.delete(url, HTTP_ACCEPT_LANGUAGE='en')
+
+        obtained_status = response.status_code
+        self.assertEqual(status.HTTP_200_OK, obtained_status)
+
+        detail = response.data['detail']
+
+        self.assertEqual('Branch deleted successfully!', detail)
+
+        self.assertFalse(Branch.objects.filter(id=branch_id).exists())

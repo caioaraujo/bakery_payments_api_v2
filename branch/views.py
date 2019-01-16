@@ -1,5 +1,4 @@
 from django.utils.translation import ugettext as _
-from rest_framework import status
 from rest_framework.generics import GenericAPIView
 from rest_framework.response import Response
 
@@ -23,7 +22,7 @@ class BranchView(GenericAPIView):
         data = self.service.insert(params)
         serialized = BranchResponseSerializer(data)
 
-        result = {'message': _('Branch recorded successfully!'), 'data': serialized.data}
+        result = {'detail': _('Branch recorded successfully!'), 'data': serialized.data}
         return Response(result)
 
     def get(self, request):
@@ -35,6 +34,7 @@ class BranchView(GenericAPIView):
 
         return Response(serialized.data)
 
+
 class BranchViewId(GenericAPIView):
 
     serializer_class = BranchInputSerializer
@@ -43,15 +43,33 @@ class BranchViewId(GenericAPIView):
         super().__init__(**kwargs)
         self.service = BranchService()
 
+    def put(self, request, branch_id):
+        """
+        Update branch data
+        """
+        params = request.data.copy()
+        params['id'] = branch_id
+        data = self.service.update(params)
+        serialized = BranchResponseSerializer(data)
+
+        result = {'detail': _('Branch updated successfully!'), 'data': serialized.data}
+        return Response(result)
+
     def get(self, request, branch_id):
         """
         Returns a single branch
         """
         data = self.service.find_by_id(branch_id)
 
-        if not data:
-            return Response(None, status=status.HTTP_204_NO_CONTENT)
-
         serialized = BranchResponseSerializer(data)
 
         return Response(serialized.data)
+
+    def delete(self, request, branch_id):
+        """
+        Removes a single branch
+        """
+        self.service.delete(branch_id)
+
+        result = {'detail': _('Branch deleted successfully!')}
+        return Response(result)

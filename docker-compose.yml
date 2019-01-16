@@ -7,13 +7,13 @@ services:
       POSTGRES_DB: bakery
   web:
     build: .
-    command: python manage.py runserver 0.0.0.0:6002
+    command: python manage.py runserver 0.0.0.0:8001
     volumes:
       - .:/code
     environment:
       DB_HOST: 'db'
     ports:
       - "3000:3000"
-      - "6002:6002"
+      - "8001:8001"
     depends_on:
       - db

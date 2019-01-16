@@ -21,5 +21,6 @@ urlpatterns = [
     path('admin/', admin.site.urls),
     path('api-auth/', include('rest_framework.urls')),
     path('docs/', include_docs_urls(title='Bakery Payments')),
-    path('branches/', include('branch.urls'))
+    path('branches/', include('branch.urls')),
+    path('payments/', include('payment.urls'))
 ]

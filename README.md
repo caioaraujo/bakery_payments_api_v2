@@ -5,19 +5,36 @@ New version developed with Django 2.1
 ## Requirements
 
 - Python 3.6
-- PostgreSQL
+- PostgreSQL <br>
+or <br>
+- Docker
+- Docker compose
 
-For dependencies, see requirements.txt
+Optional:
+
+- Make
+
+For dependencies, see requirements.txt.
+
+In PostgreSQL, create a database named "bakery" and apply all migrations:
+
+`python manage.py migrate`
 
 ## API docs
 
 `/docs`
 
-## Running local
+## Running 
+
+### Local
 
 `python manage.py runserver`<br>
 or<br>
 `make runserver`
+
+### Docker compose
+
+`docker-compose up --build`
 
 ## Tests
 
