@@ -73,3 +73,4 @@ class BranchViewId(GenericAPIView):
 
         result = {'detail': _('Branch deleted successfully!')}
         return Response(result)
+
