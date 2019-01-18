@@ -30,7 +30,7 @@ In PostgreSQL, create a database named "bakery" and apply all migrations:
 
 `python manage.py runserver`<br>
 or<br>
-`make runserver`
+`make run-server`
 
 ### Docker compose
 
