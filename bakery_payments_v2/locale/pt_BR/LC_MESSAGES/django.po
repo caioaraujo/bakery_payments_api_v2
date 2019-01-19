@@ -6,7 +6,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2019-01-14 21:16-0200\n"
+"POT-Creation-Date: 2019-01-19 17:37-0200\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -32,13 +32,34 @@ msgstr "Filial"
 msgid "Branches"
 msgstr "Filiais"
 
-#: branch/views.py:26
-msgid "Branch recorded successfully!"
+#: branch/services.py:75 branch/services.py:87
+msgid "Branch not found"
 msgstr ""
+
+#: branch/views.py:25
+msgid "Branch recorded successfully!"
+msgstr "Filial cadastrada com sucesso!"
+
+#: branch/views.py:55
+msgid "Branch updated successfully!"
+msgstr "Filial alterada com sucesso!"
+
+#: branch/views.py:74
+msgid "Branch deleted successfully!"
+msgstr "Filial excluída com sucesso!"
 
 #: commons/decorators.py:15
 msgid "Required field"
-msgstr ""
+msgstr "Campo obrigatório"
+
+#: commons/decorators.py:42
+msgid "Not found"
+msgstr "Não encontrado"
+
+#: commons/decorators.py:55
+#, python-brace-format
+msgid "{model} not found"
+msgstr "{model} não encontrado"
 
 #: payment/models.py:15
 msgid "Payment"
@@ -51,3 +72,7 @@ msgstr "Pagamentos"
 #: payment/models.py:19
 msgid "value"
 msgstr "valor"
+
+#: payment/views.py:25
+msgid "Payment recorded successfully!"
+msgstr "Pagamento cadastrado com sucesso!"

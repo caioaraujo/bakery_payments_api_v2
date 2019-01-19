@@ -5,4 +5,5 @@ from . import views
 urlpatterns = [
     path('', views.BranchView.as_view()),
     path('<int:branch_id>/', views.BranchViewId.as_view()),
+    path('<int:branch_id>/payments/', views.BranchPaymentsView.as_view())
 ]

@@ -9,11 +9,14 @@ class TestBranchAPI(APITestCase):
 
     def setUp(self):
         self.path = '/branches/'
-        self._create_fixtures()
 
-    def _create_fixtures(self):
+    def _create_branch_fixtures(self):
         mommy.make('Branch', id=1, name='Test123')
         mommy.make('Branch', _quantity=9)
+
+    def _create_payment_fixtures(self):
+        mommy.make('Branch', _quantity=2)
+        mommy.make('Payment', branch_id=1, _quantity=3)
 
     def test_post__success(self):
         expected_name = 'Branch A'
@@ -45,6 +48,8 @@ class TestBranchAPI(APITestCase):
         self.assertEqual(detail['current_balance'], expected_message)
 
     def test_put__does_not_exists(self):
+        self._create_branch_fixtures()
+
         branch_id = 99
         data = dict(name='AAA', current_balance=888)
 
@@ -58,6 +63,8 @@ class TestBranchAPI(APITestCase):
         self.assertEqual('Branch not found', obtained_data['detail'])
 
     def test_put__success(self):
+        self._create_branch_fixtures()
+
         branch_id = 1
 
         expected_name = 'AAA'
@@ -79,6 +86,8 @@ class TestBranchAPI(APITestCase):
         self.assertEqual(expected_balance, branch_obtained['current_balance'])
 
     def test_get__success(self):
+        self._create_branch_fixtures()
+
         response = self.client.get(self.path)
 
         obtained_data = response.data
@@ -87,14 +96,14 @@ class TestBranchAPI(APITestCase):
         self.assertEqual(10, len(obtained_data))
 
     def test_get__no_data_found(self):
-        Branch.objects.all().delete()
-
         response = self.client.get(self.path)
 
         obtained_data = response.data
         self.assertFalse(len(obtained_data))
 
     def test_get_by_id__success(self):
+        self._create_branch_fixtures()
+
         branch_id = 1
 
         url = f'{self.path}{branch_id}/'
@@ -108,6 +117,7 @@ class TestBranchAPI(APITestCase):
         self.assertEqual('Test123', obtained['name'])
 
     def test_get_by_id__no_data_found(self):
+        self._create_branch_fixtures()
         branch_id = 99
 
         url = f'{self.path}{branch_id}/'
@@ -121,6 +131,7 @@ class TestBranchAPI(APITestCase):
         self.assertEqual('Branch not found', detail)
 
     def test_delete__not_found(self):
+        self._create_branch_fixtures()
         branch_id = 99
 
         url = f'{self.path}{branch_id}/'
@@ -134,6 +145,7 @@ class TestBranchAPI(APITestCase):
         self.assertEqual('Branch not found', detail)
 
     def test_delete__success(self):
+        self._create_branch_fixtures()
         branch_id = 1
 
         url = f'{self.path}{branch_id}/'
@@ -147,3 +159,38 @@ class TestBranchAPI(APITestCase):
         self.assertEqual('Branch deleted successfully!', detail)
 
         self.assertFalse(Branch.objects.filter(id=branch_id).exists())
+
+    def test_get_payments__success(self):
+        self._create_payment_fixtures()
+
+        branch_id = 1
+        response = self.client.get(path=f"{self.path}{branch_id}{'/payments/'}")
+
+        obtained_status = response.status_code
+        self.assertEqual(status.HTTP_200_OK, obtained_status)
+
+        total_obtained = len(response.data)
+
+        self.assertEqual(3, total_obtained)
+
+    def test_get_payments__no_data_found(self):
+        self._create_payment_fixtures()
+
+        branch_id = 2
+        response = self.client.get(path=f"{self.path}{branch_id}{'/payments/'}")
+
+        obtained_data = response.data
+        self.assertFalse(len(obtained_data))
+
+    def test_get_payments__branch_does_not_exists(self):
+        self._create_payment_fixtures()
+
+        branch_id = 99
+        response = self.client.get(path=f"{self.path}{branch_id}{'/payments/'}")
+
+        obtained_status = response.status_code
+        self.assertEqual(status.HTTP_404_NOT_FOUND, obtained_status)
+
+        obtained_detail = response.data['detail']
+
+        self.assertEqual('Branch not found', obtained_detail)

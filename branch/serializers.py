@@ -1,5 +1,6 @@
 from rest_framework import serializers
 
+from payment.models import Payment
 from .models import Branch
 
 
@@ -14,3 +15,10 @@ class BranchResponseSerializer(serializers.ModelSerializer):
     class Meta:
         model = Branch
         fields = ('id', 'name', 'current_balance', 'previous_balance')
+
+
+class PaymentResponseSerializer(serializers.ModelSerializer):
+
+    class Meta:
+        model = Payment
+        fields = ('id', 'value', 'expiration_date', 'is_paid')

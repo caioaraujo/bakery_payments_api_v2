@@ -2,6 +2,7 @@ from django.utils.translation import ugettext
 from rest_framework.exceptions import NotFound
 
 from commons.decorators import validate_requirements, validate_existance
+from payment.models import Payment
 from .models import Branch
 
 
@@ -85,3 +86,18 @@ class BranchService:
             Branch.objects.get(id=branch_id).delete()
         except Branch.DoesNotExist:
             raise NotFound(detail=ugettext('Branch not found'))
+
+    @validate_existance((Branch, 'branch'), is_critical=True)
+    def find_payments(self, params):
+        """
+        Find a list of branch payment
+
+        Args:
+            params: dict - filters
+
+        Returns: Payment queryset
+
+        """
+        branch = params['branch']
+
+        return Payment.objects.filter(branch_id=branch)

@@ -2,7 +2,7 @@ from django.utils.translation import ugettext as _
 from rest_framework.generics import GenericAPIView
 from rest_framework.response import Response
 
-from .serializers import BranchInputSerializer, BranchResponseSerializer
+from .serializers import BranchInputSerializer, BranchResponseSerializer, PaymentResponseSerializer
 from .services import BranchService
 
 
@@ -73,3 +73,21 @@ class BranchViewId(GenericAPIView):
 
         result = {'detail': _('Branch deleted successfully!')}
         return Response(result)
+
+
+class BranchPaymentsView(GenericAPIView):
+
+    def __init__(self, **kwargs):
+        super().__init__(**kwargs)
+        self.service = BranchService()
+
+    def get(self, request, branch_id):
+        """
+        Returns all branch payments
+        """
+        params = request.GET.dict()
+        params['branch'] = branch_id
+        data = self.service.find_payments(params)
+        serialized = PaymentResponseSerializer(data, many=True)
+
+        return Response(serialized.data)
