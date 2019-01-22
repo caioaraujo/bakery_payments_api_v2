@@ -60,3 +60,38 @@ def validate_existance(*model_key, is_critical=False):
             return func(self, params)
         return wrapper
     return decorator
+
+
+def str_to_boolean(*string_fields):
+    """
+    Converts all given fields to python Boolean
+
+    Args:
+        *string_fields: A tuple of field names to check in function parameters
+
+    """
+    def decorator(func):
+        def wrapper(self, params):
+            true_values = ['true', 'True', 'yes', '1']
+            false_values = ['false', 'False', 'no', '0']
+
+            for field_name in string_fields:
+                value = params.get(field_name)
+
+                if not value:
+                    continue
+
+                if type(value) is bool:
+                    continue
+
+                if value in true_values:
+                    params[field_name] = True
+                    continue
+
+                if value in false_values:
+                    params[field_name] = False
+                    continue
+
+            return func(self, params)
+        return wrapper
+    return decorator

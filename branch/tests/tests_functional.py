@@ -16,7 +16,8 @@ class TestBranchAPI(APITestCase):
 
     def _create_payment_fixtures(self):
         mommy.make('Branch', _quantity=2)
-        mommy.make('Payment', branch_id=1, _quantity=3)
+        mommy.make('Payment', branch_id=1, is_paid=True, _quantity=3)
+        mommy.make('Payment', branch_id=1, is_paid=False, _quantity=2)
 
     def test_post__success(self):
         expected_name = 'Branch A'
@@ -171,7 +172,7 @@ class TestBranchAPI(APITestCase):
 
         total_obtained = len(response.data)
 
-        self.assertEqual(3, total_obtained)
+        self.assertEqual(5, total_obtained)
 
     def test_get_payments__no_data_found(self):
         self._create_payment_fixtures()
@@ -194,3 +195,31 @@ class TestBranchAPI(APITestCase):
         obtained_detail = response.data['detail']
 
         self.assertEqual('Branch not found', obtained_detail)
+
+    def test_get_payments__is_paid(self):
+        self._create_payment_fixtures()
+
+        branch_id = 1
+        is_paid = 'true'
+        response = self.client.get(path=f"{self.path}{branch_id}{'/payments/'}", data={'is_paid': is_paid})
+
+        obtained_status = response.status_code
+        self.assertEqual(status.HTTP_200_OK, obtained_status)
+
+        total_obtained = len(response.data)
+
+        self.assertEqual(3, total_obtained)
+
+    def test_get_payment__is_not_paid(self):
+        self._create_payment_fixtures()
+
+        branch_id = 1
+        is_paid = False
+        response = self.client.get(path=f"{self.path}{branch_id}{'/payments/'}", data={'is_paid': is_paid})
+
+        obtained_status = response.status_code
+        self.assertEqual(status.HTTP_200_OK, obtained_status)
+
+        total_obtained = len(response.data)
+
+        self.assertEqual(2, total_obtained)

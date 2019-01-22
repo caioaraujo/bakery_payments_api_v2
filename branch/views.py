@@ -2,6 +2,7 @@ from django.utils.translation import ugettext as _
 from rest_framework.generics import GenericAPIView
 from rest_framework.response import Response
 
+from .filters import PaymentFilterBackend
 from .serializers import BranchInputSerializer, BranchResponseSerializer, PaymentResponseSerializer
 from .services import BranchService
 
@@ -76,6 +77,8 @@ class BranchViewId(GenericAPIView):
 
 
 class BranchPaymentsView(GenericAPIView):
+
+    filter_backends = [PaymentFilterBackend]
 
     def __init__(self, **kwargs):
         super().__init__(**kwargs)

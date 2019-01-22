@@ -23,3 +23,10 @@ make-messages:
 
 compile-messages:
 	python manage.py compilemessages
+
+docker-compose-up:
+	docker-compose up
+
+docker-compose-down:
+	docker-compose down
+	docker system prune --force
