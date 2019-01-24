@@ -1,5 +1,0 @@
--r requirements.txt
-
-flake8==3.6.0
-coverage==4.5.2
-model-mommy==1.6.0

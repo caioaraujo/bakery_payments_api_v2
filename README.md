@@ -5,16 +5,27 @@ New version developed with Django 2.1
 ## Requirements
 
 - Python 3.6
-- PostgreSQL <br>
-or <br>
+- PIP
+- PostgreSQL
+
+or
+
 - Docker
 - Docker compose
 
 Optional:
 
+- Pipenv
 - Make
 
-For dependencies, see requirements.txt.
+You can install all dependencies and creating a virtualenv with pipenv (https://pipenv.readthedocs.io/en/latest/install/),
+running:
+
+`pipenv install`
+
+or
+
+`make pipenv-setup`
 
 In PostgreSQL, create a database named "bakery" and apply all migrations:
 
@@ -38,14 +49,32 @@ or<br>
 
 ## Tests
 
-`python manage.py test --settings=bakery_payments_v2.settings.testing`<br>
-or<br>
+For tests running, you should install all development dependencies. It can be installed with pipenv by running:
+
+`pipenv install --dev`
+
+or
+
+`make pipenv-setup-dev`
+
+Run all project tests with:
+
+`python manage.py test --settings=bakery_payments_v2.settings.testing`
+
+or
+
 `make test`
 
 ## Coverage
 
-`coverage run --source='.' manage.py test --settings=bakery_payments_v2.settings.testing`<br>
-or<br>
+For coverage running, you should install all development dependencies. See Tests section.
+
+Run project coverage with:
+
+`coverage run --source='.' manage.py test --settings=bakery_payments_v2.settings.testing`
+
+or
+
 `make coverage`
 
 
