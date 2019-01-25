@@ -67,7 +67,7 @@ or
 
 ## Coverage
 
-For coverage running, you should install all development dependencies. See Tests section.
+For coverage running, you should install all development dependencies. See [Tests section](#Tests).
 
 Run project coverage with:
 
