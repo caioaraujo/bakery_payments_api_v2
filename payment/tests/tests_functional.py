@@ -42,3 +42,15 @@ class TestPaymentAPI(APITestCase):
 
         detail = response.data
         self.assertDictEqual(detail, expected_data)
+
+    def test_post__branch_does_not_exists(self):
+        branch_id = 99
+        data = dict(value=50, expiration_date="2017-01-01", branch=branch_id)
+
+        response = self.client.post(path=self.path, data=data, HTTP_ACCEPT_LANGUAGE='en')
+
+        obtained_status = response.status_code
+        self.assertEqual(status.HTTP_406_NOT_ACCEPTABLE, obtained_status)
+        obtained = response.data
+
+        self.assertEqual('Not found', obtained['branch'])
