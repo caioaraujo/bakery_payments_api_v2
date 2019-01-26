@@ -11,3 +11,5 @@ script:
   - python manage.py compilemessages
   - coverage run --source='.' manage.py test --settings=bakery_payments_v2.settings.testing
   - coverage report
+after_success:
+  - coveralls
