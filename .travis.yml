@@ -1,1 +1,9 @@
 language: python
+python:
+  - "3.6"
+# command to install dependencies
+install:
+  - pipenv install
+# command to run tests
+script:
+  - python manage.py test --settings=bakery_payments_v2.settings.testing
