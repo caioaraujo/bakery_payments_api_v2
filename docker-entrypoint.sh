@@ -18,6 +18,10 @@ until postgres_ready; do
   sleep 1
 done
 
+# Compile translations
+echo "Compilling translations"
+python manage.py compilemessages
+
 # Collect static files
 echo "Collect static files"
 python manage.py collectstatic --noinput

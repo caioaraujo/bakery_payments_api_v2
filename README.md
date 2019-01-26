@@ -76,5 +76,3 @@ Run project coverage with:
 or
 
 `make coverage`
-
-
