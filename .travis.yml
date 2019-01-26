@@ -6,7 +6,8 @@ install:
   - 'pip install pipenv'
   - 'pipenv sync'
   - 'pipenv sync --dev'
-# commands to compile messages, run tests, etc
+# commands to compile messages, run coverage, etc
 script:
   - python manage.py compilemessages
-  - python manage.py test --settings=bakery_payments_v2.settings.testing
+  - coverage run --source='.' manage.py test --settings=bakery_payments_v2.settings.testing
+  - coverage report
