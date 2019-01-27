@@ -6,7 +6,7 @@ from rest_framework.test import APITestCase
 class TestPaymentAPI(APITestCase):
 
     def setUp(self):
-        self.path = '/payments/'
+        self.path = '/v1/payments/'
         self._create_fixtures()
 
     def _create_fixtures(self):

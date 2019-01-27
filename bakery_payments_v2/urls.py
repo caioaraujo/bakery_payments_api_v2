@@ -23,6 +23,6 @@ urlpatterns = [
     path('docs/', include_docs_urls(title='Bakery Payments',
                                     authentication_classes=[],
                                     permission_classes=[])),
-    path('branches/', include('branch.urls')),
-    path('payments/', include('payment.urls'))
+    path('v1/branches/', include('branch.urls')),
+    path('v1/payments/', include('payment.urls'))
 ]

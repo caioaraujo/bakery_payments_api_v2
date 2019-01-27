@@ -8,7 +8,7 @@ from ..models import Branch
 class TestBranchAPI(APITestCase):
 
     def setUp(self):
-        self.path = '/branches/'
+        self.path = '/v1/branches/'
 
     def _create_branch_fixtures(self):
         mommy.make('Branch', id=1, name='Test123')

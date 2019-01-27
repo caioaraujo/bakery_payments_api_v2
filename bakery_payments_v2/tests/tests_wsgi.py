@@ -16,5 +16,5 @@ class TestWsgi(SimpleTestCase):
     @override_settings(WSGI_APPLICATION="wsgi.noexist.app")
     def test__module_failure(self):
         expect_message = "WSGI application 'wsgi.noexist.app' could not be loaded; Error importing"
-        with self.assertRaisesMessage(ImproperlyConfigured, expect_message) as context:
+        with self.assertRaisesMessage(ImproperlyConfigured, expect_message):
             get_internal_wsgi_application()
