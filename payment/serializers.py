@@ -16,6 +16,17 @@ class PaymentInputSerializer(serializers.ModelSerializer):
         fields = ('value', 'expiration_date', 'branch')
 
 
+class PaymentPatchSerializer(serializers.ModelSerializer):
+    """ Payment fetch data serializer """
+
+    value = serializers.FloatField(help_text="Payment value (R$). If not specified, "
+                                             "it will try to pay the payment full value", required=False)
+
+    class Meta:
+        model = Payment
+        fields = ('value', )
+
+
 class PaymentResponseSerializer(serializers.ModelSerializer):
     """ Custom payment response serializer """
 

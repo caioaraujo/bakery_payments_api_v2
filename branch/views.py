@@ -51,9 +51,9 @@ class BranchViewId(GenericAPIView):
         params = request.data.copy()
         params['id'] = branch_id
         data = self.service.update(params)
-        serialized = BranchResponseSerializer(data)
+        serializer = BranchResponseSerializer(data)
 
-        result = {'detail': _('Branch updated successfully!'), 'data': serialized.data}
+        result = {'detail': _('Branch updated successfully!'), 'data': serializer.data}
         return Response(result)
 
     def get(self, request, branch_id):
@@ -62,9 +62,9 @@ class BranchViewId(GenericAPIView):
         """
         data = self.service.find_by_id(branch_id)
 
-        serialized = BranchResponseSerializer(data)
+        serializer = BranchResponseSerializer(data)
 
-        return Response(serialized.data)
+        return Response(serializer.data)
 
     def delete(self, request, branch_id):
         """
@@ -91,6 +91,6 @@ class BranchPaymentsView(GenericAPIView):
         params = request.GET.dict()
         params['branch'] = branch_id
         data = self.service.find_payments(params)
-        serialized = PaymentResponseSerializer(data, many=True)
+        serializer = PaymentResponseSerializer(data, many=True)
 
-        return Response(serialized.data)
+        return Response(serializer.data)

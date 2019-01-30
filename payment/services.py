@@ -17,3 +17,8 @@ class PaymentService:
         payment.save()
 
         return payment
+
+    @validate_existance((Payment, 'id'), is_critical=True)
+    def change_paid_status(self, params):
+        # TODO
+        pass
