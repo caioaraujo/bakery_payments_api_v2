@@ -6,7 +6,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2019-01-19 17:37-0200\n"
+"POT-Creation-Date: 2019-02-02 21:55-0200\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -32,19 +32,19 @@ msgstr "Filial"
 msgid "Branches"
 msgstr "Filiais"
 
-#: branch/services.py:75 branch/services.py:87
+#: branch/services.py:76 branch/services.py:88
 msgid "Branch not found"
-msgstr ""
+msgstr "Filial não encontrada"
 
-#: branch/views.py:25
+#: branch/views.py:26
 msgid "Branch recorded successfully!"
 msgstr "Filial cadastrada com sucesso!"
 
-#: branch/views.py:55
+#: branch/views.py:56
 msgid "Branch updated successfully!"
 msgstr "Filial alterada com sucesso!"
 
-#: branch/views.py:74
+#: branch/views.py:75
 msgid "Branch deleted successfully!"
 msgstr "Filial excluída com sucesso!"
 
@@ -61,18 +61,42 @@ msgstr "Não encontrado"
 msgid "{model} not found"
 msgstr "{model} não encontrado"
 
-#: payment/models.py:15
+#: payment/models.py:31
+msgid "Payment does not exists"
+msgstr "O pagamento não existe"
+
+#: payment/models.py:35
 msgid "Payment"
 msgstr "Pagamento"
 
-#: payment/models.py:16
+#: payment/models.py:36
 msgid "Payments"
 msgstr "Pagamentos"
 
-#: payment/models.py:19
+#: payment/models.py:39
 msgid "value"
 msgstr "valor"
+
+#: payment/services.py:37
+msgid "This payment is already paid"
+msgstr "Este pagamento já está pago"
+
+#: payment/services.py:42
+msgid "This payment is due"
+msgstr "Este pagamento está vencido"
+
+#: payment/services.py:52
+msgid "Value to pay is higher than payment amount"
+msgstr "O valor a pagar é maior que o valor do pagamento"
+
+#: payment/services.py:76
+msgid "Branch has no balance"
+msgstr "A filial não tem saldo"
 
 #: payment/views.py:25
 msgid "Payment recorded successfully!"
 msgstr "Pagamento cadastrado com sucesso!"
+
+#: payment/views.py:53
+msgid "Payment changed successfully!"
+msgstr "Pagamento alterado com sucesso!"
