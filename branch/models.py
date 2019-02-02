@@ -5,8 +5,8 @@ from django.utils.translation import ugettext_lazy as _
 class Branch(models.Model):
     id = models.AutoField(primary_key=True)
     name = models.CharField(max_length=100)
-    current_balance = models.FloatField()
-    previous_balance = models.FloatField(null=True)
+    current_balance = models.DecimalField(max_digits=15, decimal_places=2)
+    previous_balance = models.DecimalField(null=True, max_digits=15, decimal_places=2)
 
     class Meta:
         db_table = 'branch'

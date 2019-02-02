@@ -35,7 +35,7 @@ class TestBranchAPI(APITestCase):
         branch_obtained = obtained_data['data']
         self.assertTrue(branch_obtained['id'] > 0)
         self.assertEqual(expected_name, branch_obtained['name'])
-        self.assertEqual(expected_balance, branch_obtained['current_balance'])
+        self.assertEqual(expected_balance, float(branch_obtained['current_balance']))
 
     def test_post__requirement_fail(self):
         expected_message = 'Required field'
@@ -48,7 +48,7 @@ class TestBranchAPI(APITestCase):
         self.assertEqual(detail['name'], expected_message)
         self.assertEqual(detail['current_balance'], expected_message)
 
-    def test_put__does_not_exists(self):
+    def test_put__branch_does_not_exists(self):
         self._create_branch_fixtures()
 
         branch_id = 99
@@ -84,7 +84,7 @@ class TestBranchAPI(APITestCase):
         branch_obtained = obtained_data['data']
         self.assertEqual(branch_id, branch_obtained['id'])
         self.assertEqual(expected_name, branch_obtained['name'])
-        self.assertEqual(expected_balance, branch_obtained['current_balance'])
+        self.assertEqual(expected_balance, float(branch_obtained['current_balance']))
 
     def test_get__success(self):
         self._create_branch_fixtures()

@@ -30,6 +30,12 @@ make-messages:
 compile-messages:
 	python manage.py compilemessages
 
+make-migrations:
+	python manage.py makemigrations
+
+migrate:
+	python manage.py migrate
+
 docker-compose-up:
 	docker-compose up
 

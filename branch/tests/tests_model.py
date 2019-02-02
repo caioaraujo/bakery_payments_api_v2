@@ -1,9 +1,9 @@
-from django.test import TestCase
+from django.test import SimpleTestCase
 
 from ..models import Branch
 
 
-class TestBranch(TestCase):
+class TestBranch(SimpleTestCase):
 
     def test_str(self):
         branch = Branch(name='Branch Test')

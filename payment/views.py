@@ -45,9 +45,9 @@ class PaymentViewId(GenericAPIView):
         - Branch has no balance.
         """
         params = dict(
-            is_paid=request.data.get('id_paid'), id=payment_id
+            value=request.data.get('value'), id=payment_id
         )
-        data = self.service.change_paid_status(params)
+        data = self.service.pay(params)
         serializer = PaymentResponseSerializer(data)
 
         result = {'detail': _('Payment changed successfully!'), 'data': serializer.data}
