@@ -3,8 +3,6 @@ from model_mommy import mommy
 from rest_framework import status
 from rest_framework.test import APITestCase
 
-from ..models import Payment
-
 
 class TestPaymentAPI(APITestCase):
 
@@ -16,9 +14,12 @@ class TestPaymentAPI(APITestCase):
         mommy.make('Branch', id=2, name='Branch2')
 
     def _create_payment_fixtures(self):
-        mommy.make('Branch', previous_balance=0, current_balance=1000, _quantity=2)
+        mommy.make('Branch', id=1, previous_balance=0, current_balance=1000, _quantity=2)
+        # Payment id 1-3
         mommy.make('Payment', branch_id=1, is_paid=True, _quantity=3)
+        # Payment id 4-5
         mommy.make('Payment', branch_id=1, is_paid=False, expiration_date='2012-01-01', value=330.20, _quantity=2)
+        # Payment id 10
         mommy.make('Payment', id=10, branch_id=1, is_paid=False, expiration_date='2012-01-01', value=1100)
 
     def test_post__success(self):
@@ -150,5 +151,56 @@ class TestPaymentAPI(APITestCase):
         # Check results
         result = data['data']
         self.assertEqual(30.2, float(result['value']))
+        self.assertIsNone(result['date_payment'])
+        self.assertFalse(result['is_paid'])
 
-        # TODO: Check other fields changes
+        self.assertEqual(700, float(result['branch']['current_balance']))
+        self.assertEqual(1000, float(result['branch']['previous_balance']))
+
+    @freeze_time('2012-01-01')
+    def test_patch__full_value__success(self):
+        self._create_payment_fixtures()
+        expected_message = 'Payment changed successfully!'
+        payment_id = 4
+
+        path = f'{self.path}{payment_id}/'
+        response = self.client.patch(path=path, data={'value': 330.2}, HTTP_ACCEPT_LANGUAGE='en')
+
+        obtained_status = response.status_code
+        self.assertEqual(status.HTTP_200_OK, obtained_status)
+
+        data = response.data
+        self.assertEqual(data['detail'], expected_message)
+
+        # Check results
+        result = data['data']
+        self.assertEqual(0, float(result['value']))
+        self.assertEqual('2012-01-01', result['date_payment'])
+        self.assertTrue(result['is_paid'])
+
+        self.assertEqual(669.8, float(result['branch']['current_balance']))
+        self.assertEqual(1000, float(result['branch']['previous_balance']))
+
+    @freeze_time('2012-01-01')
+    def test_patch__value_omitted__success(self):
+        self._create_payment_fixtures()
+        expected_message = 'Payment changed successfully!'
+        payment_id = 4
+
+        path = f'{self.path}{payment_id}/'
+        response = self.client.patch(path=path, HTTP_ACCEPT_LANGUAGE='en')
+
+        obtained_status = response.status_code
+        self.assertEqual(status.HTTP_200_OK, obtained_status)
+
+        data = response.data
+        self.assertEqual(data['detail'], expected_message)
+
+        # Check results
+        result = data['data']
+        self.assertEqual(0, float(result['value']))
+        self.assertEqual('2012-01-01', result['date_payment'])
+        self.assertTrue(result['is_paid'])
+
+        self.assertEqual(669.8, float(result['branch']['current_balance']))
+        self.assertEqual(1000, float(result['branch']['previous_balance']))
