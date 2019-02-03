@@ -34,15 +34,19 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',
 
-    # Project apps
-    'payment.apps.PaymentConfig',
-    'branch.apps.BranchConfig',
+    # Django CORS headers
+    'corsheaders',
 
     # Django Rest Framework
     'rest_framework',
+
+    # Project apps
+    'payment.apps.PaymentConfig',
+    'branch.apps.BranchConfig',
 ]
 
 MIDDLEWARE = [
+    'corsheaders.middleware.CorsMiddleware',
     'django.middleware.security.SecurityMiddleware',
     'django.contrib.sessions.middleware.SessionMiddleware',
     'django.middleware.common.CommonMiddleware',
@@ -121,6 +125,13 @@ USE_TZ = True
 STATIC_ROOT = os.path.join(BASE_DIR, 'static')
 
 STATIC_URL = '/static/'
+
+# CORS
+# https://github.com/ottoyiu/django-cors-headers
+
+CORS_ORIGIN_WHITELIST = (
+    'localhost:3000'
+)
 
 # Rest Framework
 # https://www.django-rest-framework.org/api-guide/settings/
