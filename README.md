@@ -1,10 +1,10 @@
-# Bakery Payments v2.0
+# Bakery Payments API v2.0
 
 New version developed with Django 2.1
 
-[![Build Status](https://travis-ci.com/caioaraujo/bakery_payments_v2.svg?branch=master)](https://travis-ci.com/caioaraujo/bakery_payments_v2)
+[![Build Status](https://travis-ci.com/caioaraujo/bakery_payments_api_v2.svg?branch=master)](https://travis-ci.com/caioaraujo/bakery_payments_api_v2)
 
-[![Coverage Status](https://coveralls.io/repos/github/caioaraujo/bakery_payments_v2/badge.svg?branch=master&kill_cache=1)](https://coveralls.io/github/caioaraujo/bakery_payments_v2?branch=master)
+[![Coverage Status](https://coveralls.io/repos/github/caioaraujo/bakery_payments_api_v2/badge.svg?branch=master&kill_cache=1)](https://coveralls.io/github/caioaraujo/bakery_payments_api_v2?branch=master)
 
 ## Requirements
 
