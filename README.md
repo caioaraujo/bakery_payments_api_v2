@@ -69,6 +69,16 @@ or
 
 `make test`
 
+### Coding style tests
+
+This project uses flake8 and pycodestyle checking. Install all development dependencies and execute:
+
+`flake8 & pycodestyle`
+
+or
+
+`make code-convetion`
+
 ## Coverage
 
 For coverage running, you should install all development dependencies. See [Tests section](#Tests).
@@ -80,3 +90,12 @@ Run project coverage with:
 or
 
 `make coverage`
+
+## Author
+
+**Caio Araujo** - (https://github.com/caioaraujo)
+
+## License
+
+This project is licensed under the MIT License - see the [LICENSE](LICENSE) file for details
+
