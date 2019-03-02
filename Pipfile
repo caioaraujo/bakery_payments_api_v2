@@ -7,15 +7,15 @@ verify_ssl = true
 flake8 = "==3.6.0"
 coverage = "==4.5.2"
 model-mommy = "==1.6.0"
-coveralls = "==1.5.1"
+coveralls = "==1.6.0"
 freezegun = "==0.3.11"
 
 [packages]
-django = "==2.1.5"
+django = "==2.1.7"
 djangorestframework = "==3.9.1"
 psycopg2-binary = "==2.7.7"
 coreapi = "==2.3.3"
-django-cors-headers = "==2.4.0"
+django-cors-headers = "==2.4.1"
 
 [requires]
 python_version = "3.6"
