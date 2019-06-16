@@ -77,7 +77,7 @@ This project uses flake8 and pycodestyle checking. Install all development depen
 
 or
 
-`make code-convetion`
+`make code-convention`
 
 ## Coverage
 
