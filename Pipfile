@@ -5,14 +5,14 @@ verify_ssl = true
 
 [dev-packages]
 flake8 = "==3.6.0"
-coverage = "==4.5.3"
+coverage = "==4.5.4"
 model-mommy = "==1.6.0"
-coveralls = "==1.8.1"
+coveralls = "==1.8.2"
 freezegun = "==0.3.12"
 
 [packages]
-django = "==2.2.2"
-djangorestframework = "==3.9.4"
+django = "==2.2.4"
+djangorestframework = "==3.10.2"
 psycopg2-binary = "==2.8.3"
 coreapi = "==2.3.3"
 django-cors-headers = "==3.0.2"
