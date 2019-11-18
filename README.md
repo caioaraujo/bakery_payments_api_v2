@@ -8,7 +8,7 @@ New version developed with Django 2.2
 
 ## Requirements
 
-- Python 3.6
+- Python 3.8.0
 - PIP
 - PostgreSQL
 

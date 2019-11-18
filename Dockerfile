@@ -1,4 +1,4 @@
-FROM python:3.6.8
+FROM python:3.8.0-buster
 ENV PYTHONUNBUFFERED 1
 
 RUN apt-get update && apt-get install -y gettext

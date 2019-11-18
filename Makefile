@@ -37,7 +37,7 @@ migrate:
 	python manage.py migrate
 
 docker-compose-up:
-	docker-compose up
+	docker-compose up --build
 
 docker-compose-down:
 	docker-compose down
