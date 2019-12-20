@@ -1,6 +1,6 @@
 # Bakery Payments API v2.0
 
-New version developed with Django 2.2
+New version developed with Django 3.0
 
 [![Build Status](https://travis-ci.com/caioaraujo/bakery_payments_api_v2.svg?branch=master)](https://travis-ci.com/caioaraujo/bakery_payments_api_v2)
 

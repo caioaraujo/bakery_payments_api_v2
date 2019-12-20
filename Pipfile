@@ -7,12 +7,12 @@ verify_ssl = true
 flake8 = "==3.7.9" # FIXME: Flake8 is not available for python 3.8 yet (2019-11-17)
 coverage = "==4.5.4"
 model-mommy = "==2.0.0"
-coveralls = "==1.8.2"
+coveralls = "==1.9.2"
 freezegun = "==0.3.12"
 
 [packages]
-django = "==2.2.7"
-djangorestframework = "==3.10.3"
+django = "==3.0.1"
+djangorestframework = "==3.11.0"
 psycopg2-binary = "==2.8.4"
 coreapi = "==2.3.3"
 django-cors-headers = "==3.2.0"
