@@ -8,7 +8,7 @@ New version developed with Django 3.0
 
 ## Requirements
 
-- Python 3.8.0
+- Python 3.8.2
 - PIP
 - PostgreSQL
 
@@ -22,8 +22,8 @@ Optional:
 - Pipenv
 - Make
 
-You can install all dependencies and creating a virtualenv with pipenv (https://pipenv.readthedocs.io/en/latest/install/),
-running:
+You can install all dependencies and creating a virtualenv with pipenv (https://pipenv.readthedocs.io/en/latest/install/)
+by running:
 
 `pipenv install`
 
