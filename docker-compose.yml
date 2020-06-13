@@ -8,7 +8,7 @@ services:
     environment:
       - POSTGRES_DB=bakery
   web:
-    image: python:3.8.2-buster
+    image: python:3.8.3-buster
     container_name: bakery-payments-web
     build: .
     environment:
