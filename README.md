@@ -8,8 +8,7 @@ New version developed with Django 3.0
 
 ## Requirements
 
-- Python 3.8.3
-- PIP
+- Python 3.10.0
 - PostgreSQL
 
 or
@@ -19,17 +18,21 @@ or
 
 Optional:
 
-- Pipenv
 - Make
 
-You can install all dependencies and creating a virtualenv with pipenv (https://pipenv.readthedocs.io/en/latest/install/)
-by running:
+You can create and activate a virtual environment by running:
 
-`pipenv install`
+- `python -m venv <path-to-venv>/bakery-payments-api`
+- to activate on Linux and Mac: `source <venv>/bin/activate`
+- to activate on Windows: `<venv>\Scripts\activate.bat`
+
+And then install the dependencies:
+
+`pip install -r requirements.txt`
 
 or
 
-`make pipenv-setup`
+`make install-dependencies`
 
 In PostgreSQL, create a database named "bakery" and apply all migrations:
 
@@ -53,13 +56,13 @@ or<br>
 
 ## Tests
 
-For tests running, you should install all development dependencies. It can be installed with pipenv by running:
+For tests running, you should install all development dependencies by running:
 
-`pipenv install --dev`
+`pip install -r requirements-dev.txt`
 
 or
 
-`make pipenv-setup-dev`
+`make install-dependencies-dev`
 
 Run all project tests with:
 

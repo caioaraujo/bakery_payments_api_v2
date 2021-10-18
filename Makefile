@@ -1,8 +1,8 @@
-pipenv-setup:
-	pipenv install
+install-dependencies:
+	pip install -r requirements.txt
 
-pipenv-setup-dev:
-	pipenv install --dev
+install-dependencies-dev:
+	pip install -r requirements-dev.txt
 
 run-server:
 	python manage.py runserver
