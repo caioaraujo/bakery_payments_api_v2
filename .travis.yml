@@ -1,12 +1,11 @@
 language: python
 dist: xenial
 python:
-  - "3.8.3"
+  - "3.10.0"
 # command to install dependencies
 install:
-  - 'pip install pipenv'
-  - 'pipenv sync'
-  - 'pipenv sync --dev'
+  - 'pip install -r requirements.txt'
+  - 'pip install -r requirements-dev.txt'
 # commands to compile messages, run coverage, etc
 script:
   - python manage.py compilemessages
