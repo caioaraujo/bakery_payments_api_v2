@@ -1,15 +1,13 @@
-FROM python:3.8.3-buster
+FROM python:3.10.0-buster
 ENV PYTHONUNBUFFERED 1
 
 RUN apt-get update && apt-get install -y gettext
 RUN mkdir -p /code
 WORKDIR /code
 
-ADD Pipfile /code/
-ADD Pipfile.lock /code/
+ADD requirements.txt /code/
 
 RUN pip install --upgrade pip
-RUN pip install pipenv
-RUN pipenv install --system --deploy
+RUN pip install -r requirements.txt
 
 ADD . /code/
