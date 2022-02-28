@@ -2,7 +2,7 @@
 
 New version developed with Django 4.0
 
-[![Build Status](https://travis-ci.com/caioaraujo/bakery_payments_api_v2.svg?branch=master)](https://travis-ci.com/caioaraujo/bakery_payments_api_v2)
+![Build Status](https://github.com/caioaraujo/bakery_payments_api_v2/actions/workflows/main.yml/badge.svg)
 
 [![Coverage Status](https://coveralls.io/repos/github/caioaraujo/bakery_payments_api_v2/badge.svg?branch=master&kill_cache=1)](https://coveralls.io/github/caioaraujo/bakery_payments_api_v2?branch=master)
 
