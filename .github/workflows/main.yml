@@ -46,8 +46,6 @@ jobs:
         run: |     
           coverage run --source='.' manage.py test --settings=bakery_payments_v2.settings.testing
           coverage report
-      - name: Publish on coveralls
-        run: coveralls
         
   finish:
     needs: build
