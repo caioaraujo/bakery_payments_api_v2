@@ -37,12 +37,7 @@ jobs:
         run: |     
           coverage run --source='.' manage.py test --settings=bakery_payments_v2.settings.testing
           coverage report
-        
-  finish:
-    needs: build
-    runs-on: ubuntu-latest
-    steps:
-    - name: Coveralls Finished
-      uses: coverallsapp/github-action@master
-      with:
-        github-token: ${{ secrets.github_token }}
+      - name: Coveralls publishing
+        uses: coverallsapp/github-action@master
+        with:
+          github-token: ${{ secrets.github_token }}
