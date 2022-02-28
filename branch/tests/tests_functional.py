@@ -1,4 +1,4 @@
-from model_mommy import mommy
+from model_bakery import baker
 from rest_framework import status
 
 from commons.test import CustomAPITestCase
@@ -11,13 +11,13 @@ class TestBranchAPI(CustomAPITestCase):
         self.path = '/v1/branches/'
 
     def _create_branch_fixtures(self):
-        mommy.make('Branch', id=1, name='Test123')
-        mommy.make('Branch', _quantity=9)
+        baker.make('Branch', id=1, name='Test123')
+        baker.make('Branch', _quantity=9)
 
     def _create_payment_fixtures(self):
-        mommy.make('Branch', _quantity=2)
-        mommy.make('Payment', branch_id=1, is_paid=True, _quantity=3)
-        mommy.make('Payment', branch_id=1, is_paid=False, _quantity=2)
+        baker.make('Branch', _quantity=2)
+        baker.make('Payment', branch_id=1, is_paid=True, _quantity=3)
+        baker.make('Payment', branch_id=1, is_paid=False, _quantity=2)
 
     def test_post__success(self):
         expected_name = 'Branch A'

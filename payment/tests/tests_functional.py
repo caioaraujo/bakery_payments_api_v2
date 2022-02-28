@@ -1,5 +1,5 @@
 from freezegun import freeze_time
-from model_mommy import mommy
+from model_bakery import baker
 from rest_framework import status
 
 from commons.test import CustomAPITestCase
@@ -11,17 +11,17 @@ class TestPaymentAPI(CustomAPITestCase):
         self.path = '/v1/payments/'
 
     def _create_fixtures(self):
-        mommy.make('Branch', id=1, name='Branch1')
-        mommy.make('Branch', id=2, name='Branch2')
+        baker.make('Branch', id=1, name='Branch1')
+        baker.make('Branch', id=2, name='Branch2')
 
     def _create_payment_fixtures(self):
-        mommy.make('Branch', id=1, previous_balance=0, current_balance=1000, _quantity=2)
+        baker.make('Branch', id=1, previous_balance=0, current_balance=1000, _quantity=2)
         # Payment id 1-3
-        mommy.make('Payment', branch_id=1, is_paid=True, _quantity=3)
+        baker.make('Payment', branch_id=1, is_paid=True, _quantity=3)
         # Payment id 4-5
-        mommy.make('Payment', branch_id=1, is_paid=False, expiration_date='2012-01-01', value=330.20, _quantity=2)
+        baker.make('Payment', branch_id=1, is_paid=False, expiration_date='2012-01-01', value=330.20, _quantity=2)
         # Payment id 10
-        mommy.make('Payment', id=10, branch_id=1, is_paid=False, expiration_date='2012-01-01', value=1100)
+        baker.make('Payment', id=10, branch_id=1, is_paid=False, expiration_date='2012-01-01', value=1100)
 
     def test_post__success(self):
         self._create_fixtures()

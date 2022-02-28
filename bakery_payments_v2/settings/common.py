@@ -13,7 +13,7 @@ https://docs.djangoproject.com/en/2.1/ref/settings/
 import os
 
 # Build paths inside the project like this: os.path.join(BASE_DIR, ...)
-from django.utils.translation import ugettext_lazy
+from django.utils.translation import gettext_lazy
 
 BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 
@@ -102,8 +102,8 @@ AUTH_PASSWORD_VALIDATORS = [
 LANGUAGE_CODE = 'en'
 
 LANGUAGES = [
-    ('en', ugettext_lazy('English')),
-    ('pt-br', ugettext_lazy('Portuguese (BR)'))
+    ('en', gettext_lazy('English')),
+    ('pt-br', gettext_lazy('Portuguese (BR)'))
 ]
 
 LOCALE_PATHS = [
@@ -113,8 +113,6 @@ LOCALE_PATHS = [
 TIME_ZONE = 'America/Sao_Paulo'
 
 USE_I18N = True
-
-USE_L10N = True
 
 USE_TZ = True
 

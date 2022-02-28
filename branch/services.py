@@ -1,4 +1,4 @@
-from django.utils.translation import ugettext
+from django.utils.translation import gettext
 from rest_framework.exceptions import NotFound
 
 from commons.decorators import validate_requirements, validate_existance, str_to_boolean
@@ -73,7 +73,7 @@ class BranchService:
         try:
             return Branch.objects.get(id=branch_id)
         except Branch.DoesNotExist:
-            raise NotFound(detail=ugettext('Branch not found'))
+            raise NotFound(detail=gettext('Branch not found'))
 
     def delete(self, branch_id):
         """
@@ -85,7 +85,7 @@ class BranchService:
         try:
             Branch.objects.get(id=branch_id).delete()
         except Branch.DoesNotExist:
-            raise NotFound(detail=ugettext('Branch not found'))
+            raise NotFound(detail=gettext('Branch not found'))
 
     @validate_existance((Branch, 'branch'), is_critical=True)
     @str_to_boolean('is_paid')

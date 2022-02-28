@@ -1,5 +1,5 @@
 from django.test import override_settings, TestCase
-from model_mommy import mommy
+from model_bakery import baker
 from rest_framework.exceptions import APIException
 
 from ..models import Payment
@@ -8,8 +8,8 @@ from ..models import Payment
 class TestPayment(TestCase):
 
     def _create_payment_fixtures(self):
-        mommy.make('Branch')
-        mommy.make('Payment', id=1, branch_id=1, value=34.5)
+        baker.make('Branch')
+        baker.make('Payment', id=1, branch_id=1, value=34.5)
 
     @override_settings(LANGUAGE_CODE='en', LANGUAGES=(('en', 'English'),))
     def test_str__en(self):

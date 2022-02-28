@@ -1,5 +1,5 @@
 from django.db import models
-from django.utils.translation import ugettext_lazy as _, ugettext
+from django.utils.translation import gettext_lazy as _, gettext
 from rest_framework.exceptions import APIException
 
 
@@ -28,7 +28,7 @@ class Payment(models.Model):
         try:
             return cls.objects.values_list(*field_names, flat=is_flat).get(id=payment_id)
         except Payment.DoesNotExist:
-            raise APIException(detail=ugettext('Payment does not exists'))
+            raise APIException(detail=gettext('Payment does not exists'))
 
     class Meta:
         db_table = 'payment'

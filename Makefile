@@ -8,7 +8,7 @@ run-server:
 	python manage.py runserver
 
 test:
-	python manage.py test --settings=bakery_payments_v2.settings.testing
+	python -Wa manage.py test --settings=bakery_payments_v2.settings.testing
 
 coverage:
 	coverage run --source='.' manage.py test --settings=bakery_payments_v2.settings.testing

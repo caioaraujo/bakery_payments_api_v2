@@ -1,4 +1,4 @@
-from django.utils.translation import ugettext
+from django.utils.translation import gettext
 from rest_framework.exceptions import NotAcceptable, NotFound
 
 
@@ -12,7 +12,7 @@ def validate_requirements(*required_fields):
     """
     def decorator(func):
         def wrapper(self, params):
-            message = ugettext('Required field')
+            message = gettext('Required field')
             invalid_data = dict()
 
             obtained_fields = list(params.keys())
@@ -39,7 +39,7 @@ def validate_existance(*model_key, is_critical=False):
     """
     def decorator(func):
         def wrapper(self, params):
-            message = ugettext('Not found')
+            message = gettext('Not found')
             invalid_data = dict()
 
             for Model, key_name in model_key:
@@ -52,7 +52,7 @@ def validate_existance(*model_key, is_critical=False):
 
                 if not exists:
                     if is_critical:
-                        raise NotFound(ugettext('{model} not found').format(model=Model.__name__))
+                        raise NotFound(gettext('{model} not found').format(model=Model.__name__))
                     invalid_data[key_name] = message
 
             if invalid_data:
