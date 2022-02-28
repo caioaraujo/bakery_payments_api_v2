@@ -36,9 +36,9 @@ jobs:
       - name: Run coverage      
         run: |     
           coverage run --source='.' manage.py test --settings=bakery_payments_v2.settings.testing
-          coverage report
+          coverage xml
       - name: Coveralls publishing
         uses: coverallsapp/github-action@master
         with:
           github-token: ${{ secrets.github_token }}
-          path-to-lcov: .coverage
+          path-to-lcov: coverage.xml
