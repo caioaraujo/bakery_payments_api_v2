@@ -24,9 +24,7 @@ jobs:
       - name: Check Python version
         run: python --version
       - name: Install requirements
-        run: | 
-          pip install -r requirements.txt
-          pip install -r requirements-dev.txt
+        run: pip install -r requirements-dev.txt
       - name: Compile messages
         run: python manage.py compilemessages
       - name: Check code convention
