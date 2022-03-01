@@ -1,5 +1,5 @@
 -r requirements.txt
-coverage==6.3.2
+coverage[toml]==6.3.2
 model-bakery==1.4.0
 coveralls==3.3.1
 freezegun==1.1.0

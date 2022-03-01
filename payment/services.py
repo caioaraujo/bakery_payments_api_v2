@@ -16,9 +16,7 @@ class PaymentService:
         expiration_date = params["expiration_date"]
         branch = params["branch"]
 
-        payment = Payment(
-            value=value, expiration_date=expiration_date, branch_id=branch
-        )
+        payment = Payment(value=value, expiration_date=expiration_date, branch_id=branch)
 
         payment.save()
 
@@ -30,9 +28,7 @@ class PaymentService:
         payment_id = params["id"]
 
         fields_to_query = ("is_paid", "expiration_date", "value", "branch_id")
-        is_paid, expiration_date, current_value, branch_id = Payment.find_single_values(
-            payment_id, *fields_to_query
-        )
+        is_paid, expiration_date, current_value, branch_id = Payment.find_single_values(payment_id, *fields_to_query)
         current_value = float(current_value)
 
         # Check if payment is already paid
@@ -52,9 +48,7 @@ class PaymentService:
 
             # Check amount
             if value_to_pay > current_value:
-                raise NotAcceptable(
-                    detail=_("Value to pay is higher than payment amount")
-                )
+                raise NotAcceptable(detail=_("Value to pay is higher than payment amount"))
 
             if value_to_pay == current_value:
                 is_paid = True
@@ -79,9 +73,7 @@ class PaymentService:
         return Payment.objects.get(id=payment_id)
 
     def _update_branch_balance(self, branch_id, amount_to_discount):
-        current_branch_balance = Branch.objects.values_list(
-            "current_balance", flat=True
-        ).get(id=branch_id)
+        current_branch_balance = Branch.objects.values_list("current_balance", flat=True).get(id=branch_id)
         current_branch_balance = float(current_branch_balance)
 
         if amount_to_discount > current_branch_balance:

@@ -56,9 +56,7 @@ def validate_existance(*model_key, is_critical=False):
 
                 if not exists:
                     if is_critical:
-                        raise NotFound(
-                            gettext("{model} not found").format(model=Model.__name__)
-                        )
+                        raise NotFound(gettext("{model} not found").format(model=Model.__name__))
                     invalid_data[key_name] = message
 
             if invalid_data:

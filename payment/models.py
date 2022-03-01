@@ -26,9 +26,7 @@ class Payment(models.Model):
         is_flat = len(field_names) == 1
 
         try:
-            return cls.objects.values_list(*field_names, flat=is_flat).get(
-                id=payment_id
-            )
+            return cls.objects.values_list(*field_names, flat=is_flat).get(id=payment_id)
         except Payment.DoesNotExist:
             raise APIException(detail=gettext("Payment does not exists"))
 

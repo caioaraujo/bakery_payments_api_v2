@@ -22,9 +22,7 @@ urlpatterns = [
     path("api-auth/", include("rest_framework.urls")),
     path(
         "docs/",
-        include_docs_urls(
-            title="Bakery Payments", authentication_classes=[], permission_classes=[]
-        ),
+        include_docs_urls(title="Bakery Payments", authentication_classes=[], permission_classes=[]),
     ),
     path("v1/branches/", include("branch.urls")),
     path("v1/payments/", include("payment.urls")),

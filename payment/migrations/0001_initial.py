@@ -23,9 +23,7 @@ class Migration(migrations.Migration):
                 ("is_paid", models.BooleanField(default=False)),
                 (
                     "branch",
-                    models.ForeignKey(
-                        on_delete=django.db.models.deletion.CASCADE, to="branch.Branch"
-                    ),
+                    models.ForeignKey(on_delete=django.db.models.deletion.CASCADE, to="branch.Branch"),
                 ),
             ],
             options={

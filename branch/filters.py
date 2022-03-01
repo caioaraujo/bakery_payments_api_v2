@@ -11,9 +11,7 @@ class PaymentFilterBackend(BaseFilterBackend):
             coreapi.Field(
                 name="is_paid",
                 required=False,
-                schema=coreschema.Boolean(
-                    description="If true, returns only payments already paid"
-                ),
+                schema=coreschema.Boolean(description="If true, returns only payments already paid"),
                 location="query",
             )
         ]

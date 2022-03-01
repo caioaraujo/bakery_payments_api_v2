@@ -25,9 +25,7 @@ class TestBranchAPI(CustomAPITestCase):
 
         response = self.send_post(path=self.path, data=data)
 
-        self.assertResponse(
-            response, status.HTTP_200_OK, "Branch recorded successfully!"
-        )
+        self.assertResponse(response, status.HTTP_200_OK, "Branch recorded successfully!")
 
         branch_obtained = response.data["data"]
         self.assertTrue(branch_obtained["id"] > 0)
@@ -66,9 +64,7 @@ class TestBranchAPI(CustomAPITestCase):
         url = f"{self.path}{branch_id}/"
         response = self.client.put(path=url, data=data, HTTP_ACCEPT_LANGUAGE="en")
 
-        self.assertResponse(
-            response, status.HTTP_200_OK, "Branch updated successfully!"
-        )
+        self.assertResponse(response, status.HTTP_200_OK, "Branch updated successfully!")
 
         branch_obtained = response.data["data"]
         self.assertEqual(branch_id, branch_obtained["id"])
@@ -130,9 +126,7 @@ class TestBranchAPI(CustomAPITestCase):
         url = f"{self.path}{branch_id}/"
         response = self.client.delete(url, HTTP_ACCEPT_LANGUAGE="en")
 
-        self.assertResponse(
-            response, status.HTTP_200_OK, "Branch deleted successfully!"
-        )
+        self.assertResponse(response, status.HTTP_200_OK, "Branch deleted successfully!")
 
         self.assertFalse(Branch.objects.filter(id=branch_id).exists())
 
@@ -170,9 +164,7 @@ class TestBranchAPI(CustomAPITestCase):
 
         branch_id = 1
         is_paid = "true"
-        response = self.client.get(
-            path=f"{self.path}{branch_id}{'/payments/'}", data={"is_paid": is_paid}
-        )
+        response = self.client.get(path=f"{self.path}{branch_id}{'/payments/'}", data={"is_paid": is_paid})
 
         self.assertResponse(response, status.HTTP_200_OK)
 
@@ -185,9 +177,7 @@ class TestBranchAPI(CustomAPITestCase):
 
         branch_id = 1
         is_paid = False
-        response = self.client.get(
-            path=f"{self.path}{branch_id}{'/payments/'}", data={"is_paid": is_paid}
-        )
+        response = self.client.get(path=f"{self.path}{branch_id}{'/payments/'}", data={"is_paid": is_paid})
 
         self.assertResponse(response, status.HTTP_200_OK)
 

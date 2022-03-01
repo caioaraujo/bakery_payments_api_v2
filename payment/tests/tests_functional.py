@@ -14,9 +14,7 @@ class TestPaymentAPI(CustomAPITestCase):
         baker.make("Branch", id=2, name="Branch2")
 
     def _create_payment_fixtures(self):
-        baker.make(
-            "Branch", id=1, previous_balance=0, current_balance=1000, _quantity=2
-        )
+        baker.make("Branch", id=1, previous_balance=0, current_balance=1000, _quantity=2)
         # Payment id 1-3
         baker.make("Payment", branch_id=1, is_paid=True, _quantity=3)
         # Payment id 4-5
@@ -52,9 +50,7 @@ class TestPaymentAPI(CustomAPITestCase):
 
         response = self.send_post(path=self.path, data=data)
 
-        self.assertResponse(
-            response, status.HTTP_200_OK, "Payment recorded successfully!"
-        )
+        self.assertResponse(response, status.HTTP_200_OK, "Payment recorded successfully!")
 
         obtained_data = response.data
 
@@ -65,9 +61,7 @@ class TestPaymentAPI(CustomAPITestCase):
         self.assertEqual(expected_branch, payment_obtained["branch"]["id"])
 
     def test_post__requirement_fail(self):
-        expected_data = dict.fromkeys(
-            ["value", "expiration_date", "branch"], "Required field"
-        )
+        expected_data = dict.fromkeys(["value", "expiration_date", "branch"], "Required field")
         response = self.send_post(path=self.path)
 
         self.assertResponse(response, status.HTTP_406_NOT_ACCEPTABLE)
@@ -100,9 +94,7 @@ class TestPaymentAPI(CustomAPITestCase):
         path = f"{self.path}1/"
         response = self.client.patch(path=path, HTTP_ACCEPT_LANGUAGE="en")
 
-        self.assertResponse(
-            response, status.HTTP_406_NOT_ACCEPTABLE, "This payment is already paid"
-        )
+        self.assertResponse(response, status.HTTP_406_NOT_ACCEPTABLE, "This payment is already paid")
 
     @freeze_time("2012-01-02")
     def test_patch__payment_is_due(self):
@@ -111,18 +103,14 @@ class TestPaymentAPI(CustomAPITestCase):
         path = f"{self.path}4/"
         response = self.client.patch(path=path, HTTP_ACCEPT_LANGUAGE="en")
 
-        self.assertResponse(
-            response, status.HTTP_406_NOT_ACCEPTABLE, "This payment is due"
-        )
+        self.assertResponse(response, status.HTTP_406_NOT_ACCEPTABLE, "This payment is due")
 
     @freeze_time("2012-01-01")
     def test_patch__value_is_higher_than_payment_amount(self):
         self._create_payment_fixtures()
 
         path = f"{self.path}4/"
-        response = self.client.patch(
-            path=path, data={"value": 400}, HTTP_ACCEPT_LANGUAGE="en"
-        )
+        response = self.client.patch(path=path, data={"value": 400}, HTTP_ACCEPT_LANGUAGE="en")
 
         self.assertResponse(
             response,
@@ -137,9 +125,7 @@ class TestPaymentAPI(CustomAPITestCase):
         path = f"{self.path}10/"
         response = self.client.patch(path=path, HTTP_ACCEPT_LANGUAGE="en")
 
-        self.assertResponse(
-            response, status.HTTP_406_NOT_ACCEPTABLE, "Branch has no balance"
-        )
+        self.assertResponse(response, status.HTTP_406_NOT_ACCEPTABLE, "Branch has no balance")
 
     @freeze_time("2012-01-01")
     def test_patch__specific_value__success(self):
@@ -147,13 +133,9 @@ class TestPaymentAPI(CustomAPITestCase):
         payment_id = 4
 
         path = f"{self.path}{payment_id}/"
-        response = self.client.patch(
-            path=path, data={"value": 300}, HTTP_ACCEPT_LANGUAGE="en"
-        )
+        response = self.client.patch(path=path, data={"value": 300}, HTTP_ACCEPT_LANGUAGE="en")
 
-        self.assertResponse(
-            response, status.HTTP_200_OK, "Payment changed successfully!"
-        )
+        self.assertResponse(response, status.HTTP_200_OK, "Payment changed successfully!")
         data = response.data
 
         # Check results
@@ -171,13 +153,9 @@ class TestPaymentAPI(CustomAPITestCase):
         payment_id = 4
 
         path = f"{self.path}{payment_id}/"
-        response = self.client.patch(
-            path=path, data={"value": 330.2}, HTTP_ACCEPT_LANGUAGE="en"
-        )
+        response = self.client.patch(path=path, data={"value": 330.2}, HTTP_ACCEPT_LANGUAGE="en")
 
-        self.assertResponse(
-            response, status.HTTP_200_OK, "Payment changed successfully!"
-        )
+        self.assertResponse(response, status.HTTP_200_OK, "Payment changed successfully!")
 
         data = response.data
 
@@ -198,9 +176,7 @@ class TestPaymentAPI(CustomAPITestCase):
         path = f"{self.path}{payment_id}/"
         response = self.client.patch(path=path, HTTP_ACCEPT_LANGUAGE="en")
 
-        self.assertResponse(
-            response, status.HTTP_200_OK, "Payment changed successfully!"
-        )
+        self.assertResponse(response, status.HTTP_200_OK, "Payment changed successfully!")
 
         data = response.data
 
