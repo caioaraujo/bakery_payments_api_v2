@@ -72,15 +72,15 @@ or
 
 `make test`
 
-### Coding style tests
+### Coding formatting
 
-This project uses flake8 and pycodestyle checking. Install all development dependencies and execute:
+This project uses black to keep the code clean. Install all development dependencies and execute:
 
-`flake8 & pycodestyle`
+`black .`
 
 or
 
-`make code-convention`
+`make code-formatting`
 
 ## Coverage
 

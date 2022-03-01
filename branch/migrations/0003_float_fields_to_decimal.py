@@ -6,18 +6,18 @@ from django.db import migrations, models
 class Migration(migrations.Migration):
 
     dependencies = [
-        ('branch', '0002_branch_meta_info'),
+        ("branch", "0002_branch_meta_info"),
     ]
 
     operations = [
         migrations.AlterField(
-            model_name='branch',
-            name='current_balance',
+            model_name="branch",
+            name="current_balance",
             field=models.DecimalField(decimal_places=2, max_digits=15),
         ),
         migrations.AlterField(
-            model_name='branch',
-            name='previous_balance',
+            model_name="branch",
+            name="previous_balance",
             field=models.DecimalField(decimal_places=2, max_digits=15, null=True),
         ),
     ]

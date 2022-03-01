@@ -10,9 +10,10 @@ def validate_requirements(*required_fields):
         *required_fields: A tuple of field names to check in function parameters
 
     """
+
     def decorator(func):
         def wrapper(self, params):
-            message = gettext('Required field')
+            message = gettext("Required field")
             invalid_data = dict()
 
             obtained_fields = list(params.keys())
@@ -23,7 +24,9 @@ def validate_requirements(*required_fields):
             if invalid_data:
                 raise NotAcceptable(detail=invalid_data)
             return func(self, params)
+
         return wrapper
+
     return decorator
 
 
@@ -37,9 +40,10 @@ def validate_existance(*model_key, is_critical=False):
         is_critical: When true, if object is not found raises a NotFound exception immediatly
 
     """
+
     def decorator(func):
         def wrapper(self, params):
-            message = gettext('Not found')
+            message = gettext("Not found")
             invalid_data = dict()
 
             for Model, key_name in model_key:
@@ -52,13 +56,17 @@ def validate_existance(*model_key, is_critical=False):
 
                 if not exists:
                     if is_critical:
-                        raise NotFound(gettext('{model} not found').format(model=Model.__name__))
+                        raise NotFound(
+                            gettext("{model} not found").format(model=Model.__name__)
+                        )
                     invalid_data[key_name] = message
 
             if invalid_data:
                 raise NotAcceptable(detail=invalid_data)
             return func(self, params)
+
         return wrapper
+
     return decorator
 
 
@@ -70,10 +78,11 @@ def str_to_boolean(*string_fields):
         *string_fields: A tuple of field names to check in function parameters
 
     """
+
     def decorator(func):
         def wrapper(self, params):
-            true_values = ['true', 'True', 'yes', '1']
-            false_values = ['false', 'False', 'no', '0']
+            true_values = ["true", "True", "yes", "1"]
+            false_values = ["false", "False", "no", "0"]
 
             for field_name in string_fields:
                 value = params.get(field_name)
@@ -93,5 +102,7 @@ def str_to_boolean(*string_fields):
                     continue
 
             return func(self, params)
+
         return wrapper
+
     return decorator

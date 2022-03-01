@@ -2,7 +2,11 @@ from django.utils.translation import gettext as _
 from rest_framework.generics import GenericAPIView
 from rest_framework.response import Response
 
-from .serializers import PaymentInputSerializer, PaymentPatchSerializer, PaymentResponseSerializer
+from .serializers import (
+    PaymentInputSerializer,
+    PaymentPatchSerializer,
+    PaymentResponseSerializer,
+)
 from .services import PaymentService
 
 
@@ -22,7 +26,10 @@ class PaymentView(GenericAPIView):
         data = self.service.insert(params)
         serializer = PaymentResponseSerializer(data)
 
-        result = {'detail': _('Payment recorded successfully!'), 'data': serializer.data}
+        result = {
+            "detail": _("Payment recorded successfully!"),
+            "data": serializer.data,
+        }
         return Response(result)
 
 
@@ -44,11 +51,9 @@ class PaymentViewId(GenericAPIView):
         - Value is higher than amount available for payment;
         - Branch has no balance.
         """
-        params = dict(
-            value=request.data.get('value'), id=payment_id
-        )
+        params = dict(value=request.data.get("value"), id=payment_id)
         data = self.service.pay(params)
         serializer = PaymentResponseSerializer(data)
 
-        result = {'detail': _('Payment changed successfully!'), 'data': serializer.data}
+        result = {"detail": _("Payment changed successfully!"), "data": serializer.data}
         return Response(result)

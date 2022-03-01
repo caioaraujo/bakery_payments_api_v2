@@ -27,10 +27,8 @@ jobs:
         run: pip install -r requirements-dev.txt
       - name: Compile messages
         run: python manage.py compilemessages
-      - name: Check code convention
-        run: |
-          flake8
-          pycodestyle
+      - name: Formatting code
+        run: black .
       - name: Run coverage      
         run: |     
           coverage run --source='.' manage.py test --settings=bakery_payments_v2.settings.testing

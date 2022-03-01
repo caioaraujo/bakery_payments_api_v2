@@ -5,33 +5,38 @@ from .models import Payment
 
 
 class PaymentInputSerializer(serializers.ModelSerializer):
-    """ Payment input data serializer """
+    """Payment input data serializer"""
 
     value = serializers.FloatField(help_text="Payment value (R$)", required=True)
-    expiration_date = serializers.DateField(help_text="Date when payment will expires", required=True)
+    expiration_date = serializers.DateField(
+        help_text="Date when payment will expires", required=True
+    )
     branch = serializers.IntegerField(help_text="Branch identifier", required=True)
 
     class Meta:
         model = Payment
-        fields = ('value', 'expiration_date', 'branch')
+        fields = ("value", "expiration_date", "branch")
 
 
 class PaymentPatchSerializer(serializers.ModelSerializer):
-    """ Payment fetch data serializer """
+    """Payment fetch data serializer"""
 
-    value = serializers.FloatField(help_text="Payment value (R$). If not specified, "
-                                             "it will try to pay the payment full value", required=False)
+    value = serializers.FloatField(
+        help_text="Payment value (R$). If not specified, "
+        "it will try to pay the payment full value",
+        required=False,
+    )
 
     class Meta:
         model = Payment
-        fields = ('value', )
+        fields = ("value",)
 
 
 class PaymentResponseSerializer(serializers.ModelSerializer):
-    """ Custom payment response serializer """
+    """Custom payment response serializer"""
 
     branch = BranchResponseSerializer()
 
     class Meta:
         model = Payment
-        fields = ('id', 'value', 'expiration_date', 'branch', 'is_paid', 'date_payment')
+        fields = ("id", "value", "expiration_date", "branch", "is_paid", "date_payment")

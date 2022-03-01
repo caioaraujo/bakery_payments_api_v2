@@ -9,10 +9,10 @@ class Branch(models.Model):
     previous_balance = models.DecimalField(null=True, max_digits=15, decimal_places=2)
 
     class Meta:
-        db_table = 'branch'
-        ordering = ['-id']
-        verbose_name = _('Branch')
-        verbose_name_plural = _('Branches')
+        db_table = "branch"
+        ordering = ["-id"]
+        verbose_name = _("Branch")
+        verbose_name_plural = _("Branches")
 
     def __str__(self):
         return self.name

@@ -17,9 +17,8 @@ coverage:
 coverage-erase:
 	coverage erase
 
-code-convention:
-	flake8
-	pycodestyle
+code-formatting:
+	black .
 
 collect-static:
 	python manage.py collectstatic

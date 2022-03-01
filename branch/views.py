@@ -3,7 +3,11 @@ from rest_framework.generics import GenericAPIView
 from rest_framework.response import Response
 
 from .filters import PaymentFilterBackend
-from .serializers import BranchInputSerializer, BranchResponseSerializer, PaymentResponseSerializer
+from .serializers import (
+    BranchInputSerializer,
+    BranchResponseSerializer,
+    PaymentResponseSerializer,
+)
 from .services import BranchService
 
 
@@ -23,7 +27,7 @@ class BranchView(GenericAPIView):
         data = self.service.insert(params)
         serialized = BranchResponseSerializer(data)
 
-        result = {'detail': _('Branch recorded successfully!'), 'data': serialized.data}
+        result = {"detail": _("Branch recorded successfully!"), "data": serialized.data}
         return Response(result)
 
     def get(self, request):
@@ -49,11 +53,11 @@ class BranchViewId(GenericAPIView):
         Update branch data
         """
         params = request.data.copy()
-        params['id'] = branch_id
+        params["id"] = branch_id
         data = self.service.update(params)
         serializer = BranchResponseSerializer(data)
 
-        result = {'detail': _('Branch updated successfully!'), 'data': serializer.data}
+        result = {"detail": _("Branch updated successfully!"), "data": serializer.data}
         return Response(result)
 
     def get(self, request, branch_id):
@@ -72,7 +76,7 @@ class BranchViewId(GenericAPIView):
         """
         self.service.delete(branch_id)
 
-        result = {'detail': _('Branch deleted successfully!')}
+        result = {"detail": _("Branch deleted successfully!")}
         return Response(result)
 
 
@@ -89,7 +93,7 @@ class BranchPaymentsView(GenericAPIView):
         Returns all branch payments
         """
         params = request.GET.dict()
-        params['branch'] = branch_id
+        params["branch"] = branch_id
         data = self.service.find_payments(params)
         serializer = PaymentResponseSerializer(data, many=True)
 

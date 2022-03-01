@@ -6,12 +6,16 @@ from django.db import migrations
 class Migration(migrations.Migration):
 
     dependencies = [
-        ('branch', '0001_initial'),
+        ("branch", "0001_initial"),
     ]
 
     operations = [
         migrations.AlterModelOptions(
-            name='branch',
-            options={'ordering': ['-id'], 'verbose_name': 'Branch', 'verbose_name_plural': 'Branches'},
+            name="branch",
+            options={
+                "ordering": ["-id"],
+                "verbose_name": "Branch",
+                "verbose_name_plural": "Branches",
+            },
         ),
     ]

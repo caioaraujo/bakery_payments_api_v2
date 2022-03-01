@@ -11,7 +11,7 @@ class BranchService:
     General services for branch
     """
 
-    @validate_requirements('name', 'current_balance')
+    @validate_requirements("name", "current_balance")
     def insert(self, params):
         """
         Save a new Branch model
@@ -23,15 +23,15 @@ class BranchService:
 
         """
         branch = Branch()
-        branch.name = params['name']
-        branch.current_balance = params['current_balance']
+        branch.name = params["name"]
+        branch.current_balance = params["current_balance"]
 
         branch.save()
 
         return branch
 
-    @validate_existance((Branch, 'id'), is_critical=True)
-    @validate_requirements('name', 'current_balance')
+    @validate_existance((Branch, "id"), is_critical=True)
+    @validate_requirements("name", "current_balance")
     def update(self, params):
         """
         Update a Branch model
@@ -42,13 +42,13 @@ class BranchService:
         Returns: Branch instance
 
         """
-        branch_id = params['id']
-        name = params['name']
-        current_balance = params['current_balance']
+        branch_id = params["id"]
+        name = params["name"]
+        current_balance = params["current_balance"]
 
         branch = Branch(id=branch_id, name=name, current_balance=current_balance)
 
-        branch.save(update_fields=['name', 'current_balance'])
+        branch.save(update_fields=["name", "current_balance"])
 
         return branch
 
@@ -73,7 +73,7 @@ class BranchService:
         try:
             return Branch.objects.get(id=branch_id)
         except Branch.DoesNotExist:
-            raise NotFound(detail=gettext('Branch not found'))
+            raise NotFound(detail=gettext("Branch not found"))
 
     def delete(self, branch_id):
         """
@@ -85,10 +85,10 @@ class BranchService:
         try:
             Branch.objects.get(id=branch_id).delete()
         except Branch.DoesNotExist:
-            raise NotFound(detail=gettext('Branch not found'))
+            raise NotFound(detail=gettext("Branch not found"))
 
-    @validate_existance((Branch, 'branch'), is_critical=True)
-    @str_to_boolean('is_paid')
+    @validate_existance((Branch, "branch"), is_critical=True)
+    @str_to_boolean("is_paid")
     def find_payments(self, params):
         """
         Find a list of branch payment
@@ -99,8 +99,8 @@ class BranchService:
         Returns: Payment queryset
 
         """
-        branch = params['branch']
-        is_paid = params.get('is_paid')
+        branch = params["branch"]
+        is_paid = params.get("is_paid")
 
         query = Payment.objects.filter(branch_id=branch)
 

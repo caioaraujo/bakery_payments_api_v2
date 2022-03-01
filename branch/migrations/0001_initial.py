@@ -7,22 +7,21 @@ class Migration(migrations.Migration):
 
     initial = True
 
-    dependencies = [
-    ]
+    dependencies = []
 
     operations = [
         migrations.CreateModel(
-            name='Branch',
+            name="Branch",
             fields=[
-                ('id', models.AutoField(primary_key=True, serialize=False)),
-                ('name', models.CharField(max_length=100)),
-                ('current_balance', models.FloatField()),
-                ('previous_balance', models.FloatField(null=True)),
+                ("id", models.AutoField(primary_key=True, serialize=False)),
+                ("name", models.CharField(max_length=100)),
+                ("current_balance", models.FloatField()),
+                ("previous_balance", models.FloatField(null=True)),
             ],
             options={
-                'verbose_name': 'Branch',
-                'verbose_name_plural': 'Branches',
-                'db_table': 'branch',
+                "verbose_name": "Branch",
+                "verbose_name_plural": "Branches",
+                "db_table": "branch",
             },
         ),
     ]

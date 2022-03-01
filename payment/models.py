@@ -8,7 +8,7 @@ class Payment(models.Model):
     value = models.DecimalField(max_digits=15, decimal_places=2)
     expiration_date = models.DateField()
     date_payment = models.DateField(null=True)
-    branch = models.ForeignKey('branch.Branch', on_delete=models.CASCADE)
+    branch = models.ForeignKey("branch.Branch", on_delete=models.CASCADE)
     is_paid = models.BooleanField(default=False)
 
     @classmethod
@@ -26,15 +26,17 @@ class Payment(models.Model):
         is_flat = len(field_names) == 1
 
         try:
-            return cls.objects.values_list(*field_names, flat=is_flat).get(id=payment_id)
+            return cls.objects.values_list(*field_names, flat=is_flat).get(
+                id=payment_id
+            )
         except Payment.DoesNotExist:
-            raise APIException(detail=gettext('Payment does not exists'))
+            raise APIException(detail=gettext("Payment does not exists"))
 
     class Meta:
-        db_table = 'payment'
-        verbose_name = _('Payment')
-        verbose_name_plural = _('Payments')
+        db_table = "payment"
+        verbose_name = _("Payment")
+        verbose_name_plural = _("Payments")
 
     def __str__(self):
-        value_txt = _('value')
+        value_txt = _("value")
         return f"Id: {self.id}, {value_txt}: {self.value}"

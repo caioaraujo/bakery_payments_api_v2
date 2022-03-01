@@ -9,24 +9,29 @@ class Migration(migrations.Migration):
     initial = True
 
     dependencies = [
-        ('branch', '0001_initial'),
+        ("branch", "0001_initial"),
     ]
 
     operations = [
         migrations.CreateModel(
-            name='Payment',
+            name="Payment",
             fields=[
-                ('id', models.AutoField(primary_key=True, serialize=False)),
-                ('value', models.FloatField()),
-                ('expiration_date', models.DateField()),
-                ('date_payment', models.DateField(null=True)),
-                ('is_paid', models.BooleanField(default=False)),
-                ('branch', models.ForeignKey(on_delete=django.db.models.deletion.CASCADE, to='branch.Branch')),
+                ("id", models.AutoField(primary_key=True, serialize=False)),
+                ("value", models.FloatField()),
+                ("expiration_date", models.DateField()),
+                ("date_payment", models.DateField(null=True)),
+                ("is_paid", models.BooleanField(default=False)),
+                (
+                    "branch",
+                    models.ForeignKey(
+                        on_delete=django.db.models.deletion.CASCADE, to="branch.Branch"
+                    ),
+                ),
             ],
             options={
-                'verbose_name': 'Payment',
-                'verbose_name_plural': 'Payments',
-                'db_table': 'payment',
+                "verbose_name": "Payment",
+                "verbose_name_plural": "Payments",
+                "db_table": "payment",
             },
         ),
     ]
