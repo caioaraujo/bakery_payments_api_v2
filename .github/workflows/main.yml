@@ -25,6 +25,8 @@ jobs:
         run: python --version
       - name: Install requirements
         run: pip install -r requirements-dev.txt
+      - name: Compile messages
+        run: python manage.py compilemessages
       - name: Run coverage      
         run: |     
           coverage run --source='.' manage.py test --settings=bakery_payments_v2.settings.testing
