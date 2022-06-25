@@ -9,11 +9,10 @@ services:
       - POSTGRES_USER=postgres
       - POSTGRES_PASSWORD=postgres
       - POSTGRES_DB=bakery
-      - POSTGRES_PASSWORD=postgres
     ports:
       - "5440:5432"
   web:
-    image: python:3.10.2-buster
+    image: python:3.10.5-buster
     container_name: bakery-payments-web
     build: .
     environment:
