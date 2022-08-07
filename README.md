@@ -1,6 +1,6 @@
 # Bakery Payments API v2.0
 
-New version developed with Django 4.0
+New version developed with Django 4.1
 
 [![Build Status](https://github.com/caioaraujo/bakery_payments_api_v2/actions/workflows/main.yml/badge.svg)](https://github.com/caioaraujo/bakery_payments_api_v2/actions)
 
@@ -8,7 +8,7 @@ New version developed with Django 4.0
 
 ## Requirements
 
-- Python 3.10.5
+- Python 3.10.6
 - PostgreSQL
 
 or

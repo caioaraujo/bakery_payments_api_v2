@@ -1,4 +1,4 @@
-django==4.0.5
+django==4.1.0
 djangorestframework==3.13.1
 psycopg2-binary==2.9.3
 coreapi==2.3.3

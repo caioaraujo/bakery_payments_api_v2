@@ -12,7 +12,7 @@ services:
     ports:
       - "5440:5432"
   web:
-    image: python:3.10.5-buster
+    image: python:3.10.6-buster
     container_name: bakery-payments-web
     build: .
     environment:
