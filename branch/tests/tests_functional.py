@@ -20,7 +20,7 @@ class TestBranchAPI(CustomAPITestCase):
 
     def test_post__success(self):
         expected_name = "Branch A"
-        expected_balance = 800.8
+        expected_balance = "800.80"
         data = dict(name=expected_name, current_balance=expected_balance)
 
         response = self.send_post(path=self.path, data=data)
@@ -30,7 +30,7 @@ class TestBranchAPI(CustomAPITestCase):
         branch_obtained = response.data["data"]
         self.assertTrue(branch_obtained["id"] > 0)
         self.assertEqual(expected_name, branch_obtained["name"])
-        self.assertEqual(expected_balance, float(branch_obtained["current_balance"]))
+        self.assertEqual(expected_balance, branch_obtained["current_balance"])
 
     def test_post__requirement_fail(self):
         expected_detail = dict.fromkeys(["name", "current_balance"], "Required field")
@@ -45,7 +45,7 @@ class TestBranchAPI(CustomAPITestCase):
         self._create_branch_fixtures()
 
         branch_id = 99
-        data = dict(name="AAA", current_balance=888)
+        data = dict(name="AAA", current_balance="888.00")
 
         url = f"{self.path}{branch_id}/"
         response = self.client.put(path=url, data=data, HTTP_ACCEPT_LANGUAGE="en")
@@ -58,7 +58,7 @@ class TestBranchAPI(CustomAPITestCase):
         branch_id = 1
 
         expected_name = "AAA"
-        expected_balance = 888
+        expected_balance = "888.00"
         data = dict(name=expected_name, current_balance=expected_balance)
 
         url = f"{self.path}{branch_id}/"
@@ -69,7 +69,7 @@ class TestBranchAPI(CustomAPITestCase):
         branch_obtained = response.data["data"]
         self.assertEqual(branch_id, branch_obtained["id"])
         self.assertEqual(expected_name, branch_obtained["name"])
-        self.assertEqual(expected_balance, float(branch_obtained["current_balance"]))
+        self.assertEqual(expected_balance, branch_obtained["current_balance"])
 
     def test_get__success(self):
         self._create_branch_fixtures()

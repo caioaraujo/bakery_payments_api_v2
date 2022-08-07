@@ -23,7 +23,7 @@ class TestPaymentAPI(CustomAPITestCase):
             branch_id=1,
             is_paid=False,
             expiration_date="2012-01-01",
-            value=330.20,
+            value="330.20",
             _quantity=2,
         )
         # Payment id 10
@@ -33,13 +33,13 @@ class TestPaymentAPI(CustomAPITestCase):
             branch_id=1,
             is_paid=False,
             expiration_date="2012-01-01",
-            value=1100,
+            value="1100.00",
         )
 
     def test_post__success(self):
         self._create_fixtures()
 
-        expected_value = 50.3
+        expected_value = "50.30"
         expected_expiration_date = "2019-05-01"
         expected_branch = 1
         data = dict(
@@ -56,7 +56,7 @@ class TestPaymentAPI(CustomAPITestCase):
 
         payment_obtained = obtained_data["data"]
         self.assertTrue(payment_obtained["id"] > 0)
-        self.assertEqual(expected_value, float(payment_obtained["value"]))
+        self.assertEqual(expected_value, payment_obtained["value"])
         self.assertEqual(expected_expiration_date, payment_obtained["expiration_date"])
         self.assertEqual(expected_branch, payment_obtained["branch"]["id"])
 
@@ -110,7 +110,7 @@ class TestPaymentAPI(CustomAPITestCase):
         self._create_payment_fixtures()
 
         path = f"{self.path}4/"
-        response = self.client.patch(path=path, data={"value": 400}, HTTP_ACCEPT_LANGUAGE="en")
+        response = self.client.patch(path=path, data={"value": "400.00"}, HTTP_ACCEPT_LANGUAGE="en")
 
         self.assertResponse(
             response,
@@ -133,19 +133,19 @@ class TestPaymentAPI(CustomAPITestCase):
         payment_id = 4
 
         path = f"{self.path}{payment_id}/"
-        response = self.client.patch(path=path, data={"value": 300}, HTTP_ACCEPT_LANGUAGE="en")
+        response = self.client.patch(path=path, data={"value": "300.00"}, HTTP_ACCEPT_LANGUAGE="en")
 
         self.assertResponse(response, status.HTTP_200_OK, "Payment changed successfully!")
         data = response.data
 
         # Check results
         result = data["data"]
-        self.assertEqual(30.2, float(result["value"]))
+        self.assertEqual("30.20", result["value"])
         self.assertIsNone(result["date_payment"])
         self.assertFalse(result["is_paid"])
 
-        self.assertEqual(700, float(result["branch"]["current_balance"]))
-        self.assertEqual(1000, float(result["branch"]["previous_balance"]))
+        self.assertEqual("700.00", result["branch"]["current_balance"])
+        self.assertEqual("1000.00", result["branch"]["previous_balance"])
 
     @freeze_time("2012-01-01")
     def test_patch__full_value__success(self):
@@ -153,7 +153,7 @@ class TestPaymentAPI(CustomAPITestCase):
         payment_id = 4
 
         path = f"{self.path}{payment_id}/"
-        response = self.client.patch(path=path, data={"value": 330.2}, HTTP_ACCEPT_LANGUAGE="en")
+        response = self.client.patch(path=path, data={"value": "330.20"}, HTTP_ACCEPT_LANGUAGE="en")
 
         self.assertResponse(response, status.HTTP_200_OK, "Payment changed successfully!")
 
@@ -161,12 +161,12 @@ class TestPaymentAPI(CustomAPITestCase):
 
         # Check results
         result = data["data"]
-        self.assertEqual(0, float(result["value"]))
+        self.assertEqual("0.00", result["value"])
         self.assertEqual("2012-01-01", result["date_payment"])
         self.assertTrue(result["is_paid"])
 
-        self.assertEqual(669.8, float(result["branch"]["current_balance"]))
-        self.assertEqual(1000, float(result["branch"]["previous_balance"]))
+        self.assertEqual("669.80", result["branch"]["current_balance"])
+        self.assertEqual("1000.00", result["branch"]["previous_balance"])
 
     @freeze_time("2012-01-01")
     def test_patch__value_omitted__success(self):
@@ -182,9 +182,9 @@ class TestPaymentAPI(CustomAPITestCase):
 
         # Check results
         result = data["data"]
-        self.assertEqual(0, float(result["value"]))
+        self.assertEqual("0.00", result["value"])
         self.assertEqual("2012-01-01", result["date_payment"])
         self.assertTrue(result["is_paid"])
 
-        self.assertEqual(669.8, float(result["branch"]["current_balance"]))
-        self.assertEqual(1000, float(result["branch"]["previous_balance"]))
+        self.assertEqual("669.80", result["branch"]["current_balance"])
+        self.assertEqual("1000.00", result["branch"]["previous_balance"])

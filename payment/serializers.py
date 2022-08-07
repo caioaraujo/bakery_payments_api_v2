@@ -7,7 +7,7 @@ from .models import Payment
 class PaymentInputSerializer(serializers.ModelSerializer):
     """Payment input data serializer"""
 
-    value = serializers.FloatField(help_text="Payment value (R$)", required=True)
+    value = serializers.DecimalField(help_text="Payment value (R$)", required=True, max_digits=15, decimal_places=2)
     expiration_date = serializers.DateField(help_text="Date when payment will expires", required=True)
     branch = serializers.IntegerField(help_text="Branch identifier", required=True)
 
@@ -19,9 +19,11 @@ class PaymentInputSerializer(serializers.ModelSerializer):
 class PaymentPatchSerializer(serializers.ModelSerializer):
     """Payment fetch data serializer"""
 
-    value = serializers.FloatField(
+    value = serializers.DecimalField(
         help_text="Payment value (R$). If not specified, " "it will try to pay the payment full value",
         required=False,
+        max_digits=15,
+        decimal_places=2,
     )
 
     class Meta:

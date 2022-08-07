@@ -5,9 +5,10 @@ from .models import Branch
 
 
 class BranchInputSerializer(serializers.Serializer):
-
     name = serializers.CharField(help_text="Branch name. Maximum 100 characters.", required=True)
-    current_balance = serializers.FloatField(help_text="Branch's current balance.", required=True)
+    current_balance = serializers.DecimalField(
+        help_text="Branch's current balance.", required=True, max_digits=15, decimal_places=2
+    )
 
 
 class BranchResponseSerializer(serializers.ModelSerializer):

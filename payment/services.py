@@ -1,3 +1,5 @@
+from decimal import Decimal
+
 from django.db import transaction
 from django.utils import timezone
 from django.utils.translation import gettext as _
@@ -29,7 +31,6 @@ class PaymentService:
 
         fields_to_query = ("is_paid", "expiration_date", "value", "branch_id")
         is_paid, expiration_date, current_value, branch_id = Payment.find_single_values(payment_id, *fields_to_query)
-        current_value = float(current_value)
 
         # Check if payment is already paid
         if is_paid:
@@ -45,6 +46,7 @@ class PaymentService:
         is_paid = False
 
         if value_to_pay:
+            value_to_pay = Decimal(value_to_pay)
 
             # Check amount
             if value_to_pay > current_value:
@@ -74,7 +76,6 @@ class PaymentService:
 
     def _update_branch_balance(self, branch_id, amount_to_discount):
         current_branch_balance = Branch.objects.values_list("current_balance", flat=True).get(id=branch_id)
-        current_branch_balance = float(current_branch_balance)
 
         if amount_to_discount > current_branch_balance:
             raise NotAcceptable(detail=_("Branch has no balance"))
