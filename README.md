@@ -8,7 +8,7 @@ New version developed with Django 4.1
 
 ## Requirements
 
-- Python 3.10.6
+- Python 3.11.0
 - PostgreSQL
 
 or

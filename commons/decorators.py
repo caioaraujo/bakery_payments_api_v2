@@ -32,7 +32,7 @@ def validate_requirements(*required_fields):
 
 def validate_existance(*model_key, is_critical=False):
     """
-    Check if model exists according to its key
+    Check if data exists according to its key
 
     Args:
         *model_key: A tuple of pairs Model instance - primary key name.
