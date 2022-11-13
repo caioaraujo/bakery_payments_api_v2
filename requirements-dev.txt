@@ -1,6 +1,6 @@
 -r requirements.txt
-coverage[toml]==6.4.3
-model-bakery==1.7.0
+coverage[toml]==6.5.0
+model-bakery==1.9.0
 coveralls==3.3.1
-freezegun==1.2.1
-black==22.6.0
+freezegun==1.2.2
+black==22.10.0
