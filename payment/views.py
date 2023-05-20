@@ -11,7 +11,6 @@ from .services import PaymentService
 
 
 class PaymentView(GenericAPIView):
-
     serializer_class = PaymentInputSerializer
 
     def __init__(self, **kwargs):
@@ -34,7 +33,6 @@ class PaymentView(GenericAPIView):
 
 
 class PaymentViewId(GenericAPIView):
-
     serializer_class = PaymentPatchSerializer
 
     def __init__(self, **kwargs):

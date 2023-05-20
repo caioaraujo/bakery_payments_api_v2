@@ -7,7 +7,6 @@ from ..wsgi import application
 
 class TestWsgi(SimpleTestCase):
     def test__success(self):
-
         app = get_internal_wsgi_application()
 
         self.assertIs(app, application)

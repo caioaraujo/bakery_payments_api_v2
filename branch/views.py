@@ -12,7 +12,6 @@ from .services import BranchService
 
 
 class BranchView(GenericAPIView):
-
     serializer_class = BranchInputSerializer
 
     def __init__(self, **kwargs):
@@ -41,7 +40,6 @@ class BranchView(GenericAPIView):
 
 
 class BranchViewId(GenericAPIView):
-
     serializer_class = BranchInputSerializer
 
     def __init__(self, **kwargs):
@@ -81,7 +79,6 @@ class BranchViewId(GenericAPIView):
 
 
 class BranchPaymentsView(GenericAPIView):
-
     filter_backends = [PaymentFilterBackend]
 
     def __init__(self, **kwargs):

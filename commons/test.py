@@ -5,7 +5,6 @@ class CustomAPITestCase(APITestCase):
     def send_post(
         self, path, data=None, format=None, content_type=None, follow=False, http_accept_language="en", **extra
     ):
-
         extra["HTTP_ACCEPT_LANGUAGE"] = http_accept_language
         return self.client.post(path, data, format, content_type, follow, **extra)
 
